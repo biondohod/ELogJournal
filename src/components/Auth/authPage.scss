@@ -1,0 +1,136 @@
+.auth {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+
+  &__container {
+    width: 100%;
+    max-width: 603px;
+  }
+
+  &__form-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    padding: 22px;
+    padding-top: 108px;
+    background-color: #e8e8e8;
+    border-radius: 20px;
+  }
+
+  &__img {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 24px;
+  }
+
+  &__title {
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 41px;
+    color: #000000;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__field {
+    position: relative;
+    input {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 16px;
+      padding-right: 50px;
+      background: #c4c4c4;
+      border: none;
+      border-radius: 5px;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 20px;
+
+      &::placeholder {
+        color: #2d2d2d;
+      }
+    }
+  }
+
+  &__show-btn {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    background-image: url("../../assets/icons/eye.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  &__submit-btn {
+    width: 100%;
+    padding: 12px 0;
+    background: #5b7bb2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 22px;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover,
+    &:focus {
+      background: #46618a;
+    }
+
+    &:active {
+      background: #3a5070;
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 24px;
+    gap: 16px;
+  }
+
+  &__link-text {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    color: #000000;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__switch {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+    color: #000000;
+    border: none;
+    background: transparent;
+  }
+}
