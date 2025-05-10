@@ -1,0 +1,42 @@
+.facil-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 389px;
+
+  &__title {
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 55px;
+    color: #000000;
+  }
+
+  &__search {
+    position: relative;
+  }
+
+  &__input {
+    width: 100%;
+    border: 3px solid #4c4c4c;
+    border-radius: 12px;
+    font-size: 18px;
+    line-height: 25px;
+    padding: 8px 20px;
+    padding-right: 60px;
+    &::placeholder {
+      color: rgba(45, 45, 45, 0.6);
+    }
+  }
+
+  &__btn {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    border: none;
+    background: url("../../assets/icons/search.svg") no-repeat center;
+  }
+}

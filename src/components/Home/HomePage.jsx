@@ -1,5 +1,13 @@
+import FacilitiesFilter from "../FacilitiesFilter/FacilitiesFilter";
+import FacilitiesList from "../FacilitiesList/FacilitiesList";
+
 const HomePage = () => {
-  return <div>HomePage</div>;
+  return (
+    <>
+      <FacilitiesFilter />
+      <FacilitiesList />
+    </>
+  );
 };
 
 export default HomePage;

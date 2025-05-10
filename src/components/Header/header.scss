@@ -23,10 +23,12 @@
   }
 
   &__link {
-    font-weight: 600;
     font-size: 30px;
     line-height: 41px;
     color: #000000;
+    &.active {
+      font-weight: 600;
+    }
   }
 
   &__user {
