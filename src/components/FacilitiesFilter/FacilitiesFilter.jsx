@@ -4,7 +4,7 @@ const FacilitiesFilter = () => {
   const [searchValue, setSearchValue] = useState("");
   return (
     <div className="facil-filters">
-      <p className="facil-filters__title">Список объектов</p>
+      <p className="title">Список объектов</p>
       <div className="facil-filters__search">
         <input
           type="text"

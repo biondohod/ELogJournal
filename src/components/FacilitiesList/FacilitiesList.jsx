@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import FacilityItem from "./FacilityItem/FacilityItem";
 import "./facilitiesList.scss";
 const FacilitiesList = () => {
@@ -9,13 +10,15 @@ const FacilitiesList = () => {
   ];
   return (
     <div className="facilities">
-      <button className="facilities__button">Добавить объект</button>
+      <Link to="/create" className="button facilities__button">
+        Добавить объект
+      </Link>
       <ul className="facilities__list">
         {items.map((item) => (
           <FacilityItem key={item.id} item={item} />
         ))}
       </ul>
-      <button className="facilities__button">Показать еще</button>
+      <button className="button">Показать еще</button>
     </div>
   );
 };

@@ -1,11 +1,7 @@
 import AuthPage from "../../components/Auth/AuthPage";
 
 const Auth = () => {
-  return (
-    <main>
-      <AuthPage />
-    </main>
-  );
+  return <AuthPage />;
 };
 
 export default Auth;

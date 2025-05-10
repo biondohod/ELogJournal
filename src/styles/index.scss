@@ -29,3 +29,32 @@ main {
   margin: 0 auto;
   padding: 0 20px;
 }
+
+.title {
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 55px;
+  color: #000000;
+}
+
+.button {
+  background: #dfdfdf;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 25px;
+  color: #000000;
+  padding: 9px 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    opacity: 0.8;
+    text-decoration: none;
+  }
+
+  &--white {
+    background: #ffffff;
+  }
+}

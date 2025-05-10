@@ -1,0 +1,58 @@
+.create {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 40px 80px;
+    padding-top: 66px;
+    background-color: #e1e1e1;
+    border-radius: 20px;
+
+    .button {
+      align-self: flex-end;
+    }
+  }
+
+  &__input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 800px;
+    &:last-of-type {
+      max-width: none;
+    }
+
+    label,
+    input,
+    textarea {
+      font-size: 25px;
+      line-height: 34px;
+      color: #000000;
+    }
+
+    label {
+      sup {
+        color: #e40000;
+      }
+    }
+
+    input,
+    textarea {
+      padding: 5px 35px;
+      background: #ffffff;
+      border-radius: 5px;
+      border: none;
+    }
+
+    textarea {
+      resize: none;
+      height: 271px;
+    }
+  }
+}
