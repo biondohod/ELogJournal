@@ -3,6 +3,7 @@ import React, { Suspense } from "react";
 import Loader from "../components/Loader/Loader";
 import ProtectedRoute from "../components/Routes/ProtectedRoute";
 import PublicRoute from "../components/Routes/PublicRoute";
+import Layout from "../components/Layout/Layout";
 
 const Home = React.lazy(() => import("../pages/Home/Home"));
 const Auth = React.lazy(() => import("../pages/Auth/Auth"));
@@ -13,7 +14,9 @@ const router = createBrowserRouter([
     element: (
       <Suspense fallback={<Loader size={86} />}>
         <ProtectedRoute>
-          <Home />
+          <Layout>
+            <Home />
+          </Layout>
         </ProtectedRoute>
       </Suspense>
     ),

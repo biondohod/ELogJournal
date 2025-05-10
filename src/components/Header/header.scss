@@ -1,0 +1,58 @@
+.header {
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 30px 20px;
+  }
+
+  &__container,
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+  }
+
+  &__title {
+    font-weight: 800;
+    font-size: 55px;
+    line-height: 75px;
+    color: #000000;
+  }
+
+  &__link {
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 41px;
+    color: #000000;
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__img {
+    width: 58px;
+    height: 58px;
+  }
+
+  &__logout {
+    min-height: 40px;
+    background-color: transparent;
+    border: none;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 27px;
+    color: #e40000;
+    background-image: url("../../assets/icons/logout.svg");
+    background-repeat: no-repeat;
+    background-size: 40px;
+    background-position: center left;
+    padding-left: 40px;
+    cursor: pointer;
+  }
+}

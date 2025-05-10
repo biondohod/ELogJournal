@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 import Loader from "../Loader/Loader";
 
 const PublicRoute = ({ children }) => {
-  const user = false;
+  const user = true;
   const isLoading = false;
 
   if (isLoading) return <Loader size={86} />;

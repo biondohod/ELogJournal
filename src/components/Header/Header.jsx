@@ -1,0 +1,31 @@
+import { NavLink } from "react-router-dom";
+import profilePlaceholder from "@assets/img/profilePlaceholder.png";
+import "./header.scss";
+
+const Header = () => {
+  return (
+    <header className="header">
+      <div className="header__wrapper">
+        <div className="header__container">
+          <h1 className="header__title">ЭЖАН</h1>
+          <nav className="header__nav">
+            <NavLink to="/" className="header__link">
+              Список объектов
+            </NavLink>
+            <NavLink to="/admin" className="header__link">
+              Админ панель
+            </NavLink>
+          </nav>
+        </div>
+        <div className="header__container">
+          <div className="header__user">
+            <img src={profilePlaceholder} alt="" className="header__img" />
+            <button className="header__logout">Выход</button>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+};
+
+export default Header;
