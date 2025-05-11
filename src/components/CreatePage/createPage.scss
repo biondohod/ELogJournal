@@ -27,32 +27,37 @@
     &:last-of-type {
       max-width: none;
     }
+  }
 
-    label,
-    input,
-    textarea {
-      font-size: 25px;
-      line-height: 34px;
-      color: #000000;
-    }
+  &__label {
+    font-size: 25px;
+    line-height: 34px;
+    color: #000000;
 
-    label {
-      sup {
-        color: #e40000;
-      }
+    sup {
+      color: #e40000;
     }
+  }
 
-    input,
-    textarea {
-      padding: 5px 35px;
-      background: #ffffff;
-      border-radius: 5px;
-      border: none;
-    }
+  &__input-field {
+    font-size: 25px;
+    line-height: 34px;
+    color: #000000;
+    padding: 5px 35px;
+    background: #ffffff;
+    border-radius: 5px;
+    border: none;
+  }
 
-    textarea {
-      resize: none;
-      height: 271px;
-    }
+  &__textarea {
+    font-size: 25px;
+    line-height: 34px;
+    color: #000000;
+    padding: 5px 35px;
+    background: #ffffff;
+    border-radius: 5px;
+    border: none;
+    resize: none;
+    height: 271px;
   }
 }

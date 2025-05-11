@@ -8,6 +8,7 @@ import Layout from "../components/Layout/Layout";
 const Home = React.lazy(() => import("../pages/Home/Home"));
 const Auth = React.lazy(() => import("../pages/Auth/Auth"));
 const Create = React.lazy(() => import("../pages/Create/Create"));
+const Admin = React.lazy(() => import("../pages/Admin/Admin"));
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,18 @@ const router = createBrowserRouter([
         <ProtectedRoute>
           <Layout>
             <Create />
+          </Layout>
+        </ProtectedRoute>
+      </Suspense>
+    ),
+  },
+  {
+    path: "/admin",
+    element: (
+      <Suspense fallback={<Loader size={86} />}>
+        <ProtectedRoute>
+          <Layout>
+            <Admin />
           </Layout>
         </ProtectedRoute>
       </Suspense>
