@@ -9,6 +9,7 @@ const Home = React.lazy(() => import("../pages/Home/Home"));
 const Auth = React.lazy(() => import("../pages/Auth/Auth"));
 const Create = React.lazy(() => import("../pages/Create/Create"));
 const Admin = React.lazy(() => import("../pages/Admin/Admin"));
+const Facility = React.lazy(() => import("../pages/Facility/Facility"));
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,18 @@ const router = createBrowserRouter([
         <ProtectedRoute>
           <Layout>
             <Admin />
+          </Layout>
+        </ProtectedRoute>
+      </Suspense>
+    ),
+  },
+  {
+    path: "/facility/:id",
+    element: (
+      <Suspense fallback={<Loader size={86} />}>
+        <ProtectedRoute>
+          <Layout>
+            <Facility />
           </Layout>
         </ProtectedRoute>
       </Suspense>

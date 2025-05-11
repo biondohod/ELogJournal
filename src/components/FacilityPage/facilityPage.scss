@@ -1,0 +1,11 @@
+.facility-page {
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}

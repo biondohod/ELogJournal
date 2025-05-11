@@ -8,6 +8,11 @@
   background: #ffffff;
   border-radius: 10px;
 
+  &:hover {
+    opacity: 0.8;
+    text-decoration: none;
+  }
+
   &__container {
     justify-self: start;
     display: flex;
