@@ -1,6 +1,46 @@
 import "./registerSheets.scss";
 const RegisterSheets = () => {
-  return <div>RegisterSheets</div>;
+  return (
+    <div className="table__wrapper">
+      <table className="table table--register">
+        <colgroup>
+          <col />
+          <col />
+          <col />
+          <col />
+          <col />
+        </colgroup>
+        <thead>
+          <tr className="table__head-row">
+            <th className="table__header">Наименование организации</th>
+            <th className="table__header">Фамилия, имя, отчество</th>
+            <th className="table__header">Дата приезда</th>
+            <th className="table__header">Дата отъезда</th>
+            <th className="table__header table__cell--center">
+              Подпись представителя заказчика
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="table__row">
+            <td className="table__cell">Организация</td>
+            <td className="table__cell">Иванов Иван Иванович</td>
+            <td className="table__cell table__cell--center">13.09.2025</td>
+            <td className="table__cell table__cell--center">14.09.2025</td>
+            <td className="table__cell table__cell--center">Подпись</td>
+          </tr>
+          <tr className="table__row">
+            <td className="table__cell">Организация</td>
+            <td className="table__cell">Иванов Иван Иванович</td>
+            <td className="table__cell table__cell--center">13.09.2025</td>
+            <td className="table__cell table__cell--center">14.09.2025</td>
+            <td className="table__cell table__cell--center">Подпись</td>
+          </tr>
+        </tbody>
+      </table>
+      <button className="button button--blue">Добавить</button>
+    </div>
+  );
 };
 
 export default RegisterSheets;

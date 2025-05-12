@@ -1,0 +1,113 @@
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  table-layout: fixed;
+
+  &--orders {
+    col:nth-child(1) {
+      width: 55%;
+    }
+    col:nth-child(2) {
+      width: 35%;
+    }
+    col:nth-child(3) {
+      width: 10%;
+    }
+  }
+
+  &--register {
+    col:nth-child(1) {
+      width: 30%;
+    }
+    col:nth-child(2) {
+      width: 30%;
+    }
+    col:nth-child(3) {
+      width: 10%;
+    }
+    col:nth-child(4) {
+      width: 10%;
+    }
+    col:nth-child(5) {
+      width: 10%;
+    }
+  }
+
+  &--acount {
+    col:nth-child(1) {
+      width: 10%;
+    }
+    col:nth-child(2) {
+      width: 25%;
+    }
+    col:nth-child(3) {
+      width: 19%;
+    }
+    col:nth-child(4) {
+      width: 17%;
+    }
+    col:nth-child(5) {
+      width: 15%;
+    }
+    col:nth-child(6) {
+      width: 14%;
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 56px;
+  }
+
+  &__head-row {
+    background: #d9d9d9;
+  }
+
+  &__header {
+    font-weight: 600;
+    padding: 16px 12px;
+    text-align: left;
+    font-size: 18px;
+    border-right: 5px solid rgba(128, 128, 128, 0.47);
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  &__row {
+    background: #ebf0ff;
+  }
+
+  &__cell {
+    padding: 16px 12px;
+    font-size: 18px;
+    border-bottom: 5px solid #e1e1e1;
+    border-right: 5px solid #e1e1e1;
+    &:last-child {
+      border-right: none;
+    }
+
+    &--center {
+      text-align: center;
+    }
+  }
+
+  &__save {
+    width: 36px;
+    height: 36px;
+    background: url("../assets/icons/save.svg") no-repeat center;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
