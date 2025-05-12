@@ -25,6 +25,7 @@
     max-width: 380px;
     padding-right: 20px;
     border-right: 5px solid rgba(128, 128, 128, 0.47);
+    cursor: pointer;
 
     &:last-child {
       border-right: none;
@@ -33,6 +34,7 @@
     &--active {
       font-weight: 600;
       color: #275aff;
+      cursor: default;
     }
   }
 }
