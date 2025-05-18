@@ -1,16 +1,23 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import profilePlaceholder from "@assets/img/profilePlaceholder.png";
+import { useLogin } from "../../../query/mutations";
+import Loader from "../../Loader/Loader";
 
 const SignInForm = ({ onSwitchToSignUp }) => {
   const { register, handleSubmit } = useForm();
   const [showPassword, setShowPassword] = useState(false);
+  const { mutateAsync: signIn, isPending: isLoading } = useLogin();
+
+  const onSubmit = async (data) => {
+    await signIn(data);
+  };
 
   return (
     <div className="auth__form-wrapper">
       <img src={profilePlaceholder} alt="Auth" className="auth__img" />
       <h2 className="auth__title">Войти</h2>
-      <form className="auth__form" onSubmit={handleSubmit(() => {})}>
+      <form className="auth__form" onSubmit={handleSubmit(onSubmit)}>
         <div className="auth__field">
           <input
             type="email"
@@ -35,9 +42,13 @@ const SignInForm = ({ onSwitchToSignUp }) => {
             ></button>
           </div>
         </div>
-        <button className="auth__submit-btn" type="submit">
-          Войти
-        </button>
+        {isLoading ? (
+          <Loader size={46} />
+        ) : (
+          <button className="auth__submit-btn" type="submit">
+            Войти
+          </button>
+        )}
       </form>
       <div className="auth__links">
         <a href="#" className="auth__link-text">

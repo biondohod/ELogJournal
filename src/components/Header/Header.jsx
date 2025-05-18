@@ -1,8 +1,18 @@
 import { NavLink } from "react-router-dom";
 import profilePlaceholder from "@assets/img/profilePlaceholder.png";
 import "./header.scss";
+import { useLogout } from "../../query/mutations";
 
 const Header = () => {
+  const { mutateAsync: logOut, isPending } = useLogout();
+
+  const handleLogout = async () => {
+    try {
+      await logOut();
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
   return (
     <header className="header">
       <div className="header__wrapper">
@@ -20,7 +30,13 @@ const Header = () => {
         <div className="header__container">
           <div className="header__user">
             <img src={profilePlaceholder} alt="" className="header__img" />
-            <button className="header__logout">Выход</button>
+            <button
+              className="header__logout"
+              onClick={handleLogout}
+              disabled={isPending}
+            >
+              Выход
+            </button>
           </div>
         </div>
       </div>

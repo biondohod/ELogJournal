@@ -1,9 +1,9 @@
 import { Navigate } from "react-router-dom";
 import Loader from "../Loader/Loader";
+import { useUser } from "../../query/queries";
 
 const ProtectedRoute = ({ children }) => {
-  const user = true;
-  const isLoading = false;
+  const { data: user, isLoading } = useUser();
 
   if (isLoading) return <Loader size={86} />;
 

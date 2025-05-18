@@ -1,19 +1,42 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import profilePlaceholder from "@assets/img/profilePlaceholder.png";
+import { useRegister } from "../../../query/mutations";
+import Loader from "../../Loader/Loader";
 
 const SignUpForm = ({ onSwitchToSignIn }) => {
   const { register, handleSubmit } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeat, setShowRepeat] = useState(false);
+  const { mutateAsync: signUp, isPending: isLoading } = useRegister();
+
+  const onSubmit = async (data) => {
+    await signUp(data);
+  };
 
   return (
     <div className="auth__form-wrapper">
       <img src={profilePlaceholder} alt="Auth" className="auth__img" />
       <h2 className="auth__title">Регистрация</h2>
-      <form className="auth__form" onSubmit={handleSubmit(() => {})}>
+      <form className="auth__form" onSubmit={handleSubmit(onSubmit)}>
         <div className="auth__field">
-          <input type="text" {...register("fio")} required placeholder="ФИО" />
+          <input type="text" {...register("name")} required placeholder="Имя" />
+        </div>
+        <div className="auth__field">
+          <input
+            type="text"
+            {...register("surname")}
+            required
+            placeholder="Фамилия"
+          />
+        </div>
+        <div className="auth__field">
+          <input
+            type="text"
+            {...register("patronymic")}
+            required
+            placeholder="Отчество"
+          />
         </div>
         <div className="auth__field">
           <input
@@ -26,7 +49,7 @@ const SignUpForm = ({ onSwitchToSignIn }) => {
         <div className="auth__field">
           <input
             type="text"
-            {...register("organization")}
+            {...register("organizationName")}
             required
             placeholder="Организация"
           />
@@ -63,9 +86,13 @@ const SignUpForm = ({ onSwitchToSignIn }) => {
             ></button>
           </div>
         </div>
-        <button className="auth__submit-btn" type="submit">
-          Зарегистрироваться
-        </button>
+        {isLoading ? (
+          <Loader size={46} />
+        ) : (
+          <button className="auth__submit-btn" type="submit">
+            Зарегистрироваться
+          </button>
+        )}
       </form>
       <div className="auth__links">
         <span className="auth__switch">
