@@ -1,10 +1,10 @@
-import FacilitiesFilter from "../FacilitiesFilter/FacilitiesFilter";
 import FacilitiesList from "../FacilitiesList/FacilitiesList";
+import SearchFilter from "../SearchFilter/SearchFilter";
 
 const HomePage = () => {
   return (
     <>
-      <FacilitiesFilter />
+      <SearchFilter name={"Список объектов"} />
       <FacilitiesList />
     </>
   );

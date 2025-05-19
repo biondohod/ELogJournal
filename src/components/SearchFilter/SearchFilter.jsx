@@ -1,10 +1,10 @@
 import { useState } from "react";
-import "./facilitiesFilter.scss";
-const FacilitiesFilter = () => {
+import "./searchFilter.scss";
+const SearchFilter = ({ name }) => {
   const [searchValue, setSearchValue] = useState("");
   return (
     <div className="facil-filters">
-      <p className="title">Список объектов</p>
+      <p className="title">{name}</p>
       <div className="facil-filters__search">
         <input
           type="text"
@@ -19,4 +19,4 @@ const FacilitiesFilter = () => {
   );
 };
 
-export default FacilitiesFilter;
+export default SearchFilter;

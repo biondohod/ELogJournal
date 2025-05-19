@@ -7,9 +7,17 @@ import Layout from "../components/Layout/Layout";
 
 const Home = React.lazy(() => import("../pages/Home/Home"));
 const Auth = React.lazy(() => import("../pages/Auth/Auth"));
-const Create = React.lazy(() => import("../pages/Create/Create"));
+const CreateFacility = React.lazy(() =>
+  import("../pages/CreateFacility/CreateFacility")
+);
 const Admin = React.lazy(() => import("../pages/Admin/Admin"));
 const Facility = React.lazy(() => import("../pages/Facility/Facility"));
+const Organizations = React.lazy(() =>
+  import("../pages/Organizations/Organizations")
+);
+const CreateOrganization = React.lazy(() =>
+  import("../pages/CreateOrganization/CreateOrganization")
+);
 
 const router = createBrowserRouter([
   {
@@ -25,24 +33,48 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/create",
-    element: (
-      <Suspense fallback={<Loader size={86} />}>
-        <ProtectedRoute>
-          <Layout>
-            <Create />
-          </Layout>
-        </ProtectedRoute>
-      </Suspense>
-    ),
-  },
-  {
     path: "/admin",
     element: (
       <Suspense fallback={<Loader size={86} />}>
         <ProtectedRoute>
           <Layout>
             <Admin />
+          </Layout>
+        </ProtectedRoute>
+      </Suspense>
+    ),
+  },
+  {
+    path: "/organizations",
+    element: (
+      <Suspense fallback={<Loader size={86} />}>
+        <ProtectedRoute>
+          <Layout>
+            <Organizations />
+          </Layout>
+        </ProtectedRoute>
+      </Suspense>
+    ),
+  },
+  {
+    path: "/organizations/create",
+    element: (
+      <Suspense fallback={<Loader size={86} />}>
+        <ProtectedRoute>
+          <Layout>
+            <CreateOrganization />
+          </Layout>
+        </ProtectedRoute>
+      </Suspense>
+    ),
+  },
+  {
+    path: "facility/create",
+    element: (
+      <Suspense fallback={<Loader size={86} />}>
+        <ProtectedRoute>
+          <Layout>
+            <CreateFacility />
           </Layout>
         </ProtectedRoute>
       </Suspense>

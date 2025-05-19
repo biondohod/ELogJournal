@@ -10,7 +10,7 @@ const FacilitiesList = () => {
   ];
   return (
     <div className="facilities">
-      <Link to="/create" className="button facilities__button">
+      <Link to="/facility/create" className="button facilities__button">
         Добавить объект
       </Link>
       <ul className="facilities__list">

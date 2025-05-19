@@ -1,6 +1,6 @@
 import FacilityForm from "../FacilityForm/FacilityForm";
-import "./createPage.scss";
-const CreatePage = () => {
+import "./createFacilityPage.scss";
+const CreateFacilityPage = () => {
   return (
     <div className="create">
       <p className="title">Создание объекта</p>
@@ -9,4 +9,4 @@ const CreatePage = () => {
   );
 };
 
-export default CreatePage;
+export default CreateFacilityPage;

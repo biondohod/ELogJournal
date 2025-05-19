@@ -6,14 +6,14 @@ const axiosJwt = axios.create();
 
 const getToken = () => localStorage.getItem("token");
 const getRefreshToken = () => localStorage.getItem("refreshToken");
-const getTokenExpiry = () => Number(localStorage.getItem("tokenExpiry") || 0);
+const getTokenExpiry = () => localStorage.getItem("tokenExpiry");
 const getCurrentUserId = () => localStorage.getItem("currentUserId");
 
-const setTokens = ({ token, refreshToken, tokenExpiry, value }) => {
+const setTokens = ({ token, refreshToken, tokenExpiry, id }) => {
   localStorage.setItem("token", token);
   localStorage.setItem("refreshToken", refreshToken);
   localStorage.setItem("tokenExpiry", tokenExpiry);
-  localStorage.setItem("currentUserId", value?.id);
+  localStorage.setItem("currentUserId", id);
 };
 
 const clearTokens = () => {
@@ -33,10 +33,11 @@ axiosJwt.interceptors.request.use((config) => {
 
 axiosJwt.interceptors.request.use(async (config) => {
   const expiry = getTokenExpiry();
-  if (expiry && Date.now() > expiry) {
+  if (!expiry) return config;
+  const expiryDate = new Date(expiry);
+  if (Date.now() > expiryDate) {
     try {
       await apiRefreshToken();
-      config.headers.Authorization = `Bearer ${getToken()}`;
     } catch (e) {
       console.log("Token refresh failed", e);
     }
@@ -46,7 +47,15 @@ axiosJwt.interceptors.request.use(async (config) => {
 
 export const apiRefreshToken = async () => {
   const refreshToken = getRefreshToken();
-  const res = await axios.post(`${URL}/Auth/refresh`, { refreshToken });
+  const res = await axios.post(
+    `${URL}/Auth/refresh`,
+    { refreshToken },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
   setTokens(res.data);
   return res.data;
 };
