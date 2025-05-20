@@ -1,5 +1,6 @@
 @use "./table.scss" as *;
 @use "./modal.scss" as *;
+@use "./form.scss" as *;
 * {
   box-sizing: border-box;
   margin: 0;
@@ -65,4 +66,12 @@ main {
     background: #275aff;
     color: #ffffff;
   }
+}
+
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }

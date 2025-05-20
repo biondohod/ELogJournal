@@ -1,19 +1,21 @@
 import { useForm } from "react-hook-form";
-// import "./organizationForm.scss";
+import "./organizationForm.scss";
 
-const OrganizationForm = ({ mode = "create", onSubmit: onSubmitProp }) => {
+const OrganizationForm = ({
+  mode = "create",
+  onSubmit: onSubmitProp,
+  isPending,
+  defaultValues,
+}) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ defaultValues });
 
   const onSubmit = (data) => {
     if (onSubmitProp) {
       onSubmitProp(data);
-    } else {
-      // Для примера: выводим данные в консоль
-      console.log(data);
     }
   };
 
@@ -28,6 +30,7 @@ const OrganizationForm = ({ mode = "create", onSubmit: onSubmitProp }) => {
           id="name"
           className="facility-form__input-field"
           {...register("name", { required: "Введите название организации" })}
+          autoComplete="off"
         />
         {errors.name && (
           <span className="facility-form__error">{errors.name.message}</span>
@@ -38,6 +41,7 @@ const OrganizationForm = ({ mode = "create", onSubmit: onSubmitProp }) => {
         className={`button ${
           mode === "edit" ? "button--blue" : "button--white"
         }`}
+        disabled={isPending}
       >
         {mode === "create" ? "Добавить организацию " : "Сохранить"}
       </button>

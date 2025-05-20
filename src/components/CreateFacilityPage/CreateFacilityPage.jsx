@@ -1,5 +1,4 @@
 import FacilityForm from "../FacilityForm/FacilityForm";
-import "./createFacilityPage.scss";
 const CreateFacilityPage = () => {
   return (
     <div className="create">

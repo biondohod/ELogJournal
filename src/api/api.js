@@ -83,3 +83,38 @@ export const apiGetUser = async () => {
   const res = await axiosJwt.get(`${URL}/Users/${getCurrentUserId()}`);
   return res.data;
 };
+
+export const apiGetUserList = async () => {
+  const res = await axiosJwt.get(`${URL}/Users`);
+  return res.data;
+};
+
+export const apiGetUserById = async (id) => {
+  const res = await axiosJwt.get(`${URL}/Users/${id}`);
+  return res.data;
+};
+
+export const apiEditUser = async (id, data) => {
+  const res = await axiosJwt.patch(`${URL}/Users/${id}`, data);
+  return res.data;
+};
+
+export const apiAddOrganization = async (data) => {
+  const res = await axiosJwt.post(`${URL}/Organizations`, data);
+  return res.data;
+};
+
+export const apiGetOrganizations = async () => {
+  const res = await axiosJwt.get(`${URL}/Organizations`);
+  return res.data;
+};
+
+export const apiGetOrganizationById = async (id) => {
+  const res = await axiosJwt.get(`${URL}/Organizations/${id}`);
+  return res.data;
+};
+
+export const apiEditOrganization = async (id, data) => {
+  const res = await axiosJwt.patch(`${URL}/Organizations/${id}`, data);
+  return res.data;
+};
