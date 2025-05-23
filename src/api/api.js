@@ -47,9 +47,10 @@ axiosJwt.interceptors.request.use(async (config) => {
 
 export const apiRefreshToken = async () => {
   const refreshToken = getRefreshToken();
+  const token = getToken();
   const res = await axios.post(
     `${URL}/Auth/refresh`,
-    { refreshToken },
+    { token, refreshToken },
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -116,5 +117,25 @@ export const apiGetOrganizationById = async (id) => {
 
 export const apiEditOrganization = async (id, data) => {
   const res = await axiosJwt.patch(`${URL}/Organizations/${id}`, data);
+  return res.data;
+};
+
+export const apiAddFacility = async (data) => {
+  const res = await axiosJwt.post(`${URL}/ConstructionSites`, data);
+  return res.data;
+};
+
+export const apiGetFacilities = async () => {
+  const res = await axiosJwt.get(`${URL}/ConstructionSites`);
+  return res.data;
+};
+
+export const apiGetFacilityById = async (id) => {
+  const res = await axiosJwt.get(`${URL}/ConstructionSites/${id}`);
+  return res.data;
+};
+
+export const apiEditFacility = async (id, data) => {
+  const res = await axiosJwt.patch(`${URL}/ConstructionSites/${id}`, data);
   return res.data;
 };
