@@ -4,8 +4,7 @@ import "./organizationsList.scss";
 import OrganizationItem from "./OrganizationItem/OrganizationItem";
 import { useOrganizations } from "../../query/queries";
 import Loader from "../Loader/Loader";
-
-const SHOW_COUNT = 4;
+import { SHOW_COUNT } from "../../consts/consts";
 
 const OrganizationsList = () => {
   const { data: items = [], isLoading } = useOrganizations();

@@ -1,29 +1,33 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import FacilityItem from "./FacilityItem/FacilityItem";
 import "./facilitiesList.scss";
-import { useFacilities } from "../../query/queries";
-import Loader from "../Loader/Loader";
-const FacilitiesList = () => {
-  const { data: items, isLoading } = useFacilities();
+import { SHOW_COUNT } from "../../consts/consts";
 
-  if (isLoading) {
-    return (
-      <div className="loader-wrapper">
-        <Loader size={86} />
-      </div>
-    );
-  }
+const FacilitiesList = ({ items = [] }) => {
+  const [visibleCount, setVisibleCount] = useState(SHOW_COUNT);
+
+  const handleShowMore = () => {
+    setVisibleCount((prev) => prev + SHOW_COUNT);
+  };
+
+  const isShowMoreVisible = items.length > visibleCount;
+
   return (
     <div className="facilities">
       <Link to="/facility/create" className="button facilities__button">
         Добавить объект
       </Link>
       <ul className="facilities__list">
-        {items.map((item) => (
+        {items.slice(0, visibleCount).map((item) => (
           <FacilityItem key={item.id} item={item} />
         ))}
       </ul>
-      <button className="button">Показать еще</button>
+      {isShowMoreVisible && (
+        <button className="button" onClick={handleShowMore}>
+          Показать еще
+        </button>
+      )}
     </div>
   );
 };
