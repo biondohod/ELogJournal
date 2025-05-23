@@ -2,9 +2,16 @@ import { useState } from "react";
 import UserItem from "../UserItem/UserItem";
 import "./adminPage.scss";
 import { useUserList } from "../../query/queries";
+
 const AdminPage = () => {
   const [searchValue, setSearchValue] = useState("");
-  const { data } = useUserList();
+  const { data = [] } = useUserList();
+
+  // Фильтрация пользователей по email
+  const filteredUsers = data.filter((user) =>
+    user.email?.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
   return (
     <div className="admin">
       <div className="admin__container">
@@ -22,7 +29,7 @@ const AdminPage = () => {
       </div>
       <div className="admin__wrapper">
         <ul className="admin__list">
-          {data?.map((user) => (
+          {filteredUsers.map((user) => (
             <li key={user.id} className="admin__item">
               <UserItem user={user} />
             </li>

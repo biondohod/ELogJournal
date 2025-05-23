@@ -2,21 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./organizationsList.scss";
 import OrganizationItem from "./OrganizationItem/OrganizationItem";
-import { useOrganizations } from "../../query/queries";
-import Loader from "../Loader/Loader";
 import { SHOW_COUNT } from "../../consts/consts";
 
-const OrganizationsList = () => {
-  const { data: items = [], isLoading } = useOrganizations();
+const OrganizationsList = ({ items }) => {
   const [visibleCount, setVisibleCount] = useState(SHOW_COUNT);
-
-  if (isLoading) {
-    return (
-      <div className="loader-wrapper">
-        <Loader size={86} />
-      </div>
-    );
-  }
 
   const handleShowMore = () => {
     setVisibleCount((prev) => prev + SHOW_COUNT);

@@ -2,33 +2,31 @@ import { useState } from "react";
 import "./organizationsPage.scss";
 import SearchFilter from "../SearchFilter/SearchFilter";
 import OrganizationsList from "../OrganizationsList/OrganizationsList";
-
-// Пример данных организаций
-const organizations = [
-  {
-    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    name: "ООО Ромашка",
-    userIds: [
-      "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      "3fa85f64-5717-4562-b3fc-2c963f66afa7",
-    ],
-  },
-  {
-    id: "3fa85f64-5717-4562-b3fc-2c963f66afa7",
-    name: "АО Василёк",
-    userIds: ["3fa85f64-5717-4562-b3fc-2c963f66afa8"],
-  },
-];
+import { useOrganizations } from "../../query/queries";
+import Loader from "../Loader/Loader";
 
 const OrganizationsPage = () => {
+  const { data: organizations = [], isLoading } = useOrganizations();
   const [searchValue, setSearchValue] = useState("");
   const filtered = organizations.filter((org) =>
     org.name.toLowerCase().includes(searchValue.toLowerCase())
   );
 
+  if (isLoading) {
+    return (
+      <div className="loader-wrapper">
+        <Loader size={86} />
+      </div>
+    );
+  }
+
   return (
     <>
-      <SearchFilter name="Список организаций" />
+      <SearchFilter
+        name="Список организаций"
+        value={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
+      />
       <OrganizationsList items={filtered} />
     </>
   );
