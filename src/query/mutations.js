@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { ORGANIZATIONS, USER } from "./keys";
+import { FACILITIES, FACILITY, ORGANIZATIONS, USER } from "./keys";
 import {
   apiLogin,
   apiLogout,
@@ -7,6 +7,8 @@ import {
   apiAddOrganization,
   apiEditOrganization,
   apiEditUser,
+  apiAddFacility,
+  apiEditFacility,
 } from "../api/api";
 import { toast } from "react-toastify";
 
@@ -94,6 +96,37 @@ export const useEditUser = () => {
     },
     onError: (err) => {
       const msg = "Ошибка обновления пользователя";
+      toast.error(msg);
+    },
+  });
+};
+
+export const useAddFacility = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: apiAddFacility,
+    onSuccess: () => {
+      toast.success("Объект добавлен");
+      queryClient.invalidateQueries([FACILITIES]);
+    },
+    onError: (err) => {
+      const msg = "Ошибка добавления объекта";
+      toast.error(msg);
+    },
+  });
+};
+
+export const useEditFacility = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, data }) => apiEditFacility(id, data),
+    onSuccess: (data, variables) => {
+      toast.success("Объект обновлен");
+      queryClient.invalidateQueries([FACILITIES]);
+      queryClient.invalidateQueries([FACILITY, variables?.id]);
+    },
+    onError: (err) => {
+      const msg = "Ошибка обновления объекта";
       toast.error(msg);
     },
   });

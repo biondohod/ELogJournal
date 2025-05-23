@@ -1,12 +1,31 @@
 import { useForm } from "react-hook-form";
 import "./FacilityForm.scss";
+import { useOrganizations } from "../../query/queries";
+import { useEffect } from "react";
 
-const FacilityForm = ({ mode = "create", onSubmit: onSubmitProp }) => {
+const FacilityForm = ({
+  mode = "create",
+  onSubmit: onSubmitProp,
+  isPending,
+  defaultValues = {},
+}) => {
+  const { data: organizations = [] } = useOrganizations();
+  const processedDefaultValues = {
+    shortName: defaultValues?.shortName || "",
+    fullName: defaultValues?.fullName || "",
+    address: defaultValues?.address || "",
+    organizationId: defaultValues?.organization?.id || "",
+  };
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+    reset,
+  } = useForm({ defaultValues: processedDefaultValues });
+
+  useEffect(() => {
+    reset(processedDefaultValues);
+  }, [defaultValues, reset]);
 
   const onSubmit = (data) => {
     if (onSubmitProp) {
@@ -20,17 +39,35 @@ const FacilityForm = ({ mode = "create", onSubmit: onSubmitProp }) => {
   return (
     <form className="facility-form" onSubmit={handleSubmit(onSubmit)}>
       <div className="facility-form__input">
-        <label htmlFor="name" className="facility-form__label">
-          Название объекта <sup>*</sup>
+        <label htmlFor="shortName" className="facility-form__label">
+          Название объекта(короткое) <sup>*</sup>
         </label>
         <input
           type="text"
-          id="name"
+          id="shortName"
           className="facility-form__input-field"
-          {...register("name", { required: "Введите название объекта" })}
+          {...register("shortName", { required: "Введите название объекта" })}
         />
-        {errors.name && (
-          <span className="facility-form__error">{errors.name.message}</span>
+        {errors.shortName && (
+          <span className="facility-form__error">
+            {errors.shortName.message}
+          </span>
+        )}
+      </div>
+      <div className="facility-form__input">
+        <label htmlFor="fullName" className="facility-form__label">
+          Название объекта(полное) <sup>*</sup>
+        </label>
+        <input
+          type="text"
+          id="fullName"
+          className="facility-form__input-field"
+          {...register("fullName", { required: "Введите название объекта" })}
+        />
+        {errors.fullName && (
+          <span className="facility-form__error">
+            {errors.fullName.message}
+          </span>
         )}
       </div>
       <div className="facility-form__input">
@@ -48,22 +85,36 @@ const FacilityForm = ({ mode = "create", onSubmit: onSubmitProp }) => {
         )}
       </div>
       <div className="facility-form__input">
-        <label htmlFor="description" className="facility-form__label">
-          Описание объекта
+        <label htmlFor="organizationId" className="facility-form__label">
+          Организация <sup>*</sup>
         </label>
-        <textarea
-          id="description"
-          className="facility-form__textarea"
-          {...register("description")}
-        ></textarea>
+        <select
+          id="organizationId"
+          className="facility-form__input-field"
+          {...register("organizationId", { required: "Выберите организацию" })}
+          defaultValue=""
+        >
+          {mode === "create" && <option value="">Не указано</option>}
+          {organizations.map((organization) => (
+            <option key={organization.id} value={organization.id}>
+              {organization.name}
+            </option>
+          ))}
+        </select>
+        {errors.organizationId && (
+          <span className="facility-form__error">
+            {errors.organizationId.message}
+          </span>
+        )}
       </div>
       <button
         type="submit"
         className={`button ${
           mode === "edit" ? "button--blue" : "button--white"
         }`}
+        disabled={isPending}
       >
-        {mode === "create" ? "Добавить объекта " : "Сохранить"}
+        {mode === "create" ? "Добавить объект" : "Сохранить"}
       </button>
     </form>
   );

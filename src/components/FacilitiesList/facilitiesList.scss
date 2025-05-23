@@ -24,12 +24,8 @@
   background-color: #e1e1e1;
   border-radius: 11px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 2fr 1fr;
   transition: all 0.3s;
-  &:hover {
-    opacity: 0.8;
-    text-decoration: none;
-  }
 
   &__title {
     font-weight: 400;

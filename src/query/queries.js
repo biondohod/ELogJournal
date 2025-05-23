@@ -1,11 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
-import { ORGANIZATION, ORGANIZATIONS, USER, USERS } from "./keys";
+import {
+  FACILITIES,
+  FACILITY,
+  ORGANIZATION,
+  ORGANIZATIONS,
+  USER,
+  USERS,
+} from "./keys";
 import {
   apiGetUser,
   apiGetUserList,
   apiGetUserById,
   apiGetOrganizations,
   apiGetOrganizationById,
+  apiGetFacilities,
+  apiGetFacilityById,
 } from "../api/api";
 
 export const useUser = () => {
@@ -49,6 +58,23 @@ export const useOrganizationById = (id) => {
   return useQuery({
     queryKey: [ORGANIZATION, id],
     queryFn: () => apiGetOrganizationById(id),
+    enabled: !!id,
+    retry: 2,
+  });
+};
+
+export const useFacilities = () => {
+  return useQuery({
+    queryKey: [FACILITIES],
+    queryFn: apiGetFacilities,
+    retry: 2,
+  });
+};
+
+export const useFacilityById = (id) => {
+  return useQuery({
+    queryKey: [FACILITY, id],
+    queryFn: () => apiGetFacilityById(id),
     enabled: !!id,
     retry: 2,
   });

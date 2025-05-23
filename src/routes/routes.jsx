@@ -12,6 +12,9 @@ const CreateFacility = React.lazy(() =>
 );
 const Admin = React.lazy(() => import("../pages/Admin/Admin"));
 const Facility = React.lazy(() => import("../pages/Facility/Facility"));
+const EditFacility = React.lazy(() =>
+  import("../pages/EditFacility/EditFacility")
+);
 const Organizations = React.lazy(() =>
   import("../pages/Organizations/Organizations")
 );
@@ -102,6 +105,18 @@ const router = createBrowserRouter([
         <ProtectedRoute>
           <Layout>
             <Facility />
+          </Layout>
+        </ProtectedRoute>
+      </Suspense>
+    ),
+  },
+  {
+    path: "/facility/edit/:id",
+    element: (
+      <Suspense fallback={<Loader size={86} />}>
+        <ProtectedRoute>
+          <Layout>
+            <EditFacility />
           </Layout>
         </ProtectedRoute>
       </Suspense>
