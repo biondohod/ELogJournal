@@ -15,6 +15,7 @@ import {
   apiGetOrganizationById,
   apiGetFacilities,
   apiGetFacilityById,
+  apiGetFileById,
 } from "../api/api";
 
 export const useUser = () => {
@@ -75,6 +76,15 @@ export const useFacilityById = (id) => {
   return useQuery({
     queryKey: [FACILITY, id],
     queryFn: () => apiGetFacilityById(id),
+    enabled: !!id,
+    retry: 2,
+  });
+};
+
+export const useFileById = (id) => {
+  return useQuery({
+    queryKey: [FILE, id],
+    queryFn: () => apiGetFileById(id),
     enabled: !!id,
     retry: 2,
   });

@@ -1,8 +1,25 @@
 import { useState } from "react";
 import "./registerSheets.scss";
 import RegisterModal from "../RegisterModal/RegisterModal";
-const RegisterSheets = () => {
+import { useAddRegistrationSheet } from "../../query/mutations";
+const RegisterSheets = ({ id, sheet }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { mutateAsync: addRegistrationSheet, isPending } =
+    useAddRegistrationSheet(id);
+
+  const onSubmit = async (data) => {
+    try {
+      const formattedData = {
+        ...data,
+        registrationSheetId: sheet?.id,
+        id: id,
+      };
+      await addRegistrationSheet(formattedData);
+    } catch (error) {
+      console.error("Ошибка при добавлении регистрационного листа:", error);
+    }
+  };
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -56,7 +73,13 @@ const RegisterSheets = () => {
           Добавить
         </button>
       </div>
-      {isModalOpen && <RegisterModal onClose={handleCloseModal} />}
+      {isModalOpen && (
+        <RegisterModal
+          isPending={isPending}
+          onClose={handleCloseModal}
+          onSubmitProp={onSubmit}
+        />
+      )}
     </>
   );
 };

@@ -12,12 +12,14 @@ const FacilityPage = () => {
   const { id } = useParams();
   const { data: facility, isLoading } = useFacilityById(id);
 
+  console.log(facility);
+
   const tabs = [
     { label: "Приказы", name: "Orders", content: <Orders /> },
     {
       label: "Регистрационный лист объекта посещения",
       name: "RegisterSheets",
-      content: <RegisterSheets />,
+      content: <RegisterSheets id={id} sheet={facility?.registrationSheet} />,
     },
     {
       label: "Учетные листы",
@@ -27,7 +29,7 @@ const FacilityPage = () => {
     {
       label: "Рабочие вопросы",
       name: "WorkQuestions",
-      content: <WorkQuestions />,
+      content: <WorkQuestions id={id} issue={facility?.workIssue} />,
     },
   ];
 

@@ -9,6 +9,10 @@ import {
   apiEditUser,
   apiAddFacility,
   apiEditFacility,
+  apiUploadFile,
+  apiAddRegistrationSheet,
+  apiAddWorkIssue,
+  apiAnswerWorkIssue,
 } from "../api/api";
 import { toast } from "react-toastify";
 
@@ -127,6 +131,65 @@ export const useEditFacility = () => {
     },
     onError: (err) => {
       const msg = "Ошибка обновления объекта";
+      toast.error(msg);
+    },
+  });
+};
+
+export const useUploadFile = (id) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: apiUploadFile,
+    onSuccess: () => {
+      toast.success("Файл успешно загружен");
+      queryClient.invalidateQueries([FACILITY, id]);
+    },
+    onError: () => {
+      toast.error("Ошибка загрузки файла");
+    },
+  });
+};
+
+export const useAddRegistrationSheet = (id) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: apiAddRegistrationSheet,
+    onSuccess: () => {
+      toast.success("Регистрационный лист добавлен");
+      queryClient.invalidateQueries([FACILITY, id]);
+    },
+    onError: (err) => {
+      const msg = "Ошибка добавления регистрационного листа";
+      toast.error(msg);
+    },
+  });
+};
+
+export const useAddWorkIssue = (id) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: apiAddWorkIssue,
+    onSuccess: () => {
+      toast.success("Рабочий вопрос задан");
+      queryClient.invalidateQueries([FACILITY, id]);
+    },
+    onError: (err) => {
+      const msg = "Ошибка добавления рабочего вопроса";
+      toast.error(msg);
+    },
+  });
+};
+
+export const useAnswerWorkIssue = (id) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, data }) => apiAnswerWorkIssue(id, data),
+    onSuccess: () => {
+      toast.success("Ответ на рабочий вопрос добавлен");
+      queryClient.invalidateQueries([FACILITY, id]);
+    },
+    onError: (err) => {
+      const msg = "Ошибка добавления ответа на рабочий вопрос";
       toast.error(msg);
     },
   });

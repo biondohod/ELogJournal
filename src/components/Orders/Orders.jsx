@@ -1,4 +1,24 @@
+import { useRef } from "react";
+import { useUploadFile } from "../../query/mutations";
+
 const Orders = () => {
+  const { mutateAsync: uploadFile, isPending } = useUploadFile();
+  const fileInputRef = useRef(null);
+
+  const handleButtonClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ""; // сбросить выбранный файл
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      await uploadFile(file);
+    }
+  };
+
   return (
     <div className="table__wrapper">
       <table className="table table--orders">
@@ -31,7 +51,21 @@ const Orders = () => {
           </tr>
         </tbody>
       </table>
-      <button className="button button--blue">Загрузить</button>
+      <input
+        type="file"
+        ref={fileInputRef}
+        style={{ display: "none" }}
+        onChange={handleFileChange}
+        accept="*"
+      />
+      <button
+        className="button button--blue"
+        disabled={isPending}
+        onClick={handleButtonClick}
+        type="button"
+      >
+        Загрузить
+      </button>
     </div>
   );
 };

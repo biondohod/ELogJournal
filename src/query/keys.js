@@ -4,3 +4,4 @@ export const ORGANIZATION = "organization";
 export const ORGANIZATIONS = "organizations";
 export const FACILITIES = "facilities";
 export const FACILITY = "facility";
+export const FILE = "file";

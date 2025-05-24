@@ -139,3 +139,35 @@ export const apiEditFacility = async (id, data) => {
   const res = await axiosJwt.patch(`${URL}/ConstructionSites/${id}`, data);
   return res.data;
 };
+
+export const apiUploadFile = async (data) => {
+  const formData = new FormData();
+  formData.append("file", data);
+  const res = await axiosJwt.post(`${URL}/Files/upload`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return res.data;
+};
+
+export const apiGetFileById = async (id) => {
+  const res = await axiosJwt.get(`${URL}/Files/${id}`);
+  return res.data;
+};
+
+export const apiAddRegistrationSheet = async (data) => {
+  const res = await axiosJwt.post(`${URL}/RegistrationSheetsItems`, data);
+  return res.data;
+};
+
+export const apiAddWorkIssue = async (data) => {
+  const res = await axiosJwt.post(`${URL}/WorkIssueItems`, data);
+  return res.data;
+};
+
+export const apiAnswerWorkIssue = async (id, data) => {
+  console.log("apiAnswerWorkIssue", id, data);
+  const res = await axiosJwt.patch(`${URL}/WorkIssueItems/${id}`, data);
+  return res.data;
+};
