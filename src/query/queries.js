@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   FACILITIES,
   FACILITY,
+  FILE,
   ORGANIZATION,
   ORGANIZATIONS,
   USER,

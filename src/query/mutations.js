@@ -136,14 +136,9 @@ export const useEditFacility = () => {
   });
 };
 
-export const useUploadFile = (id) => {
-  const queryClient = useQueryClient();
+export const useUploadFile = () => {
   return useMutation({
     mutationFn: apiUploadFile,
-    onSuccess: () => {
-      toast.success("Файл успешно загружен");
-      queryClient.invalidateQueries([FACILITY, id]);
-    },
     onError: () => {
       toast.error("Ошибка загрузки файла");
     },

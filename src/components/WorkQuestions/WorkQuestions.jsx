@@ -5,6 +5,7 @@ import { prettyDate } from "../../helpers/prettyDate";
 import WorkAnswerModal from "../WorkAnswerModal/WorkAnswerModal";
 
 const WorkQuestions = ({ issue, id }) => {
+  console.log(issue);
   const [openModal, setOpenModal] = useState(null); // "question" | "answer" | null
 
   const { mutateAsync: addWorkIssue, isPending: isPendingQuestion } =

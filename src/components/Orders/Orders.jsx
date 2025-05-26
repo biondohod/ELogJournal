@@ -1,13 +1,17 @@
 import { useRef } from "react";
-import { useUploadFile } from "../../query/mutations";
+import { useEditFacility, useUploadFile } from "../../query/mutations";
+import OrderItem from "./OrderItem/OrderItem";
 
-const Orders = () => {
-  const { mutateAsync: uploadFile, isPending } = useUploadFile();
+const Orders = ({ id, orders }) => {
+  const { mutateAsync: uploadFile, isPending: isPenidingUpload } =
+    useUploadFile();
+  const { mutateAsync: editFacility, isPending: isPendingEdit } =
+    useEditFacility();
   const fileInputRef = useRef(null);
 
   const handleButtonClick = () => {
     if (fileInputRef.current) {
-      fileInputRef.current.value = ""; // сбросить выбранный файл
+      fileInputRef.current.value = "";
       fileInputRef.current.click();
     }
   };
@@ -15,7 +19,20 @@ const Orders = () => {
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      await uploadFile(file);
+      const res = await uploadFile(file);
+      const currentUserId = localStorage.getItem("currentUserId");
+      const processedData = {
+        ...res,
+        userInChargeId: currentUserId,
+      };
+
+      const data = {
+        orders: {
+          add: [processedData],
+        },
+      };
+
+      await editFacility({ id, data });
     }
   };
 
@@ -35,20 +52,9 @@ const Orders = () => {
           </tr>
         </thead>
         <tbody>
-          <tr className="table__row">
-            <td className="table__cell">Приказ №1</td>
-            <td className="table__cell">01.01.2025</td>
-            <td className="table__cell table__cell--center">
-              <button className="table__save"></button>
-            </td>
-          </tr>
-          <tr className="table__row">
-            <td className="table__cell">Приказ №2</td>
-            <td className="table__cell">05.01.2025</td>
-            <td className="table__cell table__cell--center">
-              <button className="table__save"></button>
-            </td>
-          </tr>
+          {orders.map((order) => {
+            return <OrderItem order={order} key={order?.id} />;
+          })}
         </tbody>
       </table>
       <input
@@ -60,7 +66,7 @@ const Orders = () => {
       />
       <button
         className="button button--blue"
-        disabled={isPending}
+        disabled={isPenidingUpload || isPendingEdit}
         onClick={handleButtonClick}
         type="button"
       >

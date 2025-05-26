@@ -15,7 +15,11 @@ const FacilityPage = () => {
   console.log(facility);
 
   const tabs = [
-    { label: "Приказы", name: "Orders", content: <Orders /> },
+    {
+      label: "Приказы",
+      name: "Orders",
+      content: <Orders id={id} orders={facility?.orders} />,
+    },
     {
       label: "Регистрационный лист объекта посещения",
       name: "RegisterSheets",
