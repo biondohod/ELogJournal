@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import "./FacilityForm.scss";
+import "./facilityForm.scss";
 import { useOrganizations } from "../../query/queries";
 import { useEffect } from "react";
 
