@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import profilePlaceholder from "@assets/img/profilePlaceholder.png";
 import "./header.scss";
 import { useLogout } from "../../query/mutations";
@@ -32,7 +32,12 @@ const Header = () => {
         </div>
         <div className="header__container">
           <div className="header__user">
-            <img src={profilePlaceholder} alt="" className="header__img" />
+            <Link
+              to={`/profile/${localStorage.getItem("currentUserId")}`}
+              className="header__link header__link--account"
+            >
+              <img src={profilePlaceholder} alt="" className="header__img" />
+            </Link>
             <button
               className="header__logout"
               onClick={handleLogout}

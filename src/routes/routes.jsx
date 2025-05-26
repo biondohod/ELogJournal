@@ -24,6 +24,7 @@ const CreateOrganization = React.lazy(() =>
 const EditOrganization = React.lazy(() =>
   import("../pages/EditOrganization/EditOrganization")
 );
+const Profile = React.lazy(() => import("../pages/Profile/Profile"));
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,18 @@ const router = createBrowserRouter([
         <ProtectedRoute>
           <Layout>
             <Admin />
+          </Layout>
+        </ProtectedRoute>
+      </Suspense>
+    ),
+  },
+  {
+    path: "/profile/:id",
+    element: (
+      <Suspense fallback={<Loader size={86} />}>
+        <ProtectedRoute>
+          <Layout>
+            <Profile />
           </Layout>
         </ProtectedRoute>
       </Suspense>

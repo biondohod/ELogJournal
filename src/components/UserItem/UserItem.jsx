@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { prettyDate } from "../../helpers/prettyDate";
 import { useEditUser } from "../../query/mutations";
 import { useOrganizations } from "../../query/queries";
@@ -38,7 +39,9 @@ const UserItem = ({ user }) => {
   return (
     <div className="user">
       <div className="user__container">
-        <p className="user__text">{user?.name}</p>
+        <Link to={`/profile/${user?.id}`} className="user__text">
+          {user?.name}
+        </Link>
         <p className="user__small-text">Email: {user?.email}</p>
         <p className="user__small-text">
           Дата регистрации: {prettyDate(user?.updateInfo?.createdAt)}
