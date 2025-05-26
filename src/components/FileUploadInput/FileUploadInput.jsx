@@ -1,20 +1,18 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import "./fileUploadInput.scss";
 
-const FileUploadInput = ({ onFileChange }) => {
-  const [file, setFile] = useState(null);
+const FileUploadInput = ({ files, onFilesChange, label }) => {
   const inputRef = useRef();
 
   const handleChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
-    onFileChange(selectedFile);
+    const selectedFiles = Array.from(e.target.files);
+    onFilesChange([...(files || []), ...selectedFiles]);
+    inputRef.current.value = "";
   };
 
-  const handleRemove = () => {
-    setFile(null);
-    onFileChange(null);
-    inputRef.current.value = "";
+  const handleRemove = (index) => {
+    const newFiles = files.filter((_, i) => i !== index);
+    onFilesChange(newFiles);
   };
 
   return (
@@ -25,24 +23,27 @@ const FileUploadInput = ({ onFileChange }) => {
         style={{ display: "none" }}
         onChange={handleChange}
         accept="*"
-        id="file-upload"
+        multiple
       />
-      {!file ? (
-        <button
-          type="button"
-          className="upload__button upload__text"
-          onClick={() => inputRef.current.click()}
-        >
-          Прикрепить файл
-        </button>
-      ) : (
-        <div className="upload__file-info">
-          <span className="upload__text">{file.name}</span>
-          <button
-            type="button"
-            className="upload__delete"
-            onClick={handleRemove}
-          ></button>
+      <button
+        type="button"
+        className="upload__button upload__text"
+        onClick={() => inputRef.current.click()}
+      >
+        {label || "Прикрепить файл"}
+      </button>
+      {files && files.length > 0 && (
+        <div>
+          {files.map((file, idx) => (
+            <div className="upload__file-info" key={idx}>
+              <span className="upload__text">{file.name}</span>
+              <button
+                type="button"
+                className="upload__delete"
+                onClick={() => handleRemove(idx)}
+              ></button>
+            </div>
+          ))}
         </div>
       )}
     </div>

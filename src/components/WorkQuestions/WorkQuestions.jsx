@@ -28,11 +28,11 @@ const WorkQuestions = ({ issue, id }) => {
 
   const onSubmitAnswer = async (data) => {
     try {
-      const formattedData = {
-        ...data,
-        id: id,
-      };
-      await addAnswer({ id: issue?.id, data: formattedData });
+      // const formattedData = {
+      //   ...data,
+      //   id,
+      // };
+      await addAnswer({ id: issue?.id, data });
     } catch (error) {
       console.error("Ошибка при добавлении ответа на вопрос:", error);
     }
@@ -77,7 +77,7 @@ const WorkQuestions = ({ issue, id }) => {
               issue.items.map((item) => (
                 <tr className="table__row" key={item.id}>
                   <td className="table__cell">
-                    {item.updateInfo?.createdByUserId || "-"}
+                    {item.questionedBy?.name || "-"}
                   </td>
                   <td className="table__cell">{item.question}</td>
                   <td className="table__cell table__cell--center">

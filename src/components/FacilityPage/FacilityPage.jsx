@@ -28,7 +28,7 @@ const FacilityPage = () => {
     {
       label: "Учетные листы",
       name: "AccountSheets",
-      content: <AccountSheets />,
+      content: <AccountSheets id={id} sheet={facility?.recordSheet} />,
     },
     {
       label: "Рабочие вопросы",

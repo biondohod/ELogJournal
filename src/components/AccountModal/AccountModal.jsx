@@ -1,28 +1,42 @@
 import { useForm } from "react-hook-form";
 import FileUploadInput from "../FileUploadInput/FileUploadInput";
 import { useState } from "react";
-const AccountModal = ({ onClose }) => {
+import { useAddRecordSheet, useUploadFile } from "../../query/mutations";
+
+const AccountModal = ({ id, sheetId, onClose }) => {
+  const [deviationFiles, setDeviationFiles] = useState([]);
+  const [directionFiles, setDirectionFiles] = useState([]);
+  const { mutateAsync: uploadFile, isPending: isPendingUploadFile } =
+    useUploadFile();
+  const { mutateAsync: addRecordSheet, isPending: isPendingRecordSheet } =
+    useAddRecordSheet(id);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
-    clearErrors,
   } = useForm();
 
-  const [file, setFile] = useState(null);
-
-  const handleFileChange = (selectedFile) => {
-    setFile(selectedFile);
-    setValue("file", selectedFile);
-    if (selectedFile) {
-      clearErrors("file");
+  const uploadFilesAndGetIds = async (files) => {
+    const ids = [];
+    for (const file of files) {
+      const res = await uploadFile(file);
+      ids.push(res.fileId);
     }
+    return ids;
   };
 
-  const onSubmit = (data) => {
-    // Здесь можно обработать данные формы
-    console.log(data);
+  const onSubmit = async (formData) => {
+    const deviationFilesIds = await uploadFilesAndGetIds(deviationFiles);
+    const directionFilesIds = await uploadFilesAndGetIds(directionFiles);
+
+    const data = {
+      ...formData,
+      deviationFilesIds,
+      directionFilesIds,
+      recordSheetId: sheetId,
+    };
+    await addRecordSheet(data);
     onClose();
   };
 
@@ -49,6 +63,11 @@ const AccountModal = ({ onClose }) => {
                 )}
               </div>
             </label>
+            <FileUploadInput
+              files={deviationFiles}
+              onFilesChange={setDeviationFiles}
+              label="Файлы по отступлениям"
+            />
             <label className="modal__label modal__label--account">
               <p className="modal__text">
                 Указания об устранении выявленных отступлений или нарушений и
@@ -57,60 +76,18 @@ const AccountModal = ({ onClose }) => {
               <div className="modal__input-container">
                 <textarea
                   className="modal__input modal__input--textarea"
-                  {...register("deadlines", { required: true })}
+                  {...register("directions", { required: true })}
                 />
-                {errors.deadlines && (
+                {errors.directions && (
                   <span className="modal__error">Обязательное поле</span>
                 )}
               </div>
             </label>
-            <label className="modal__label modal__label--account">
-              <p className="modal__text">
-                Подпись специалиста, осуществляющего авторский надзор,
-                выполняющего запись (фамилия, инициалы, должность)<sup>*</sup>
-              </p>
-              <div className="modal__input-container">
-                <textarea
-                  className="modal__input modal__input--textarea"
-                  {...register("fullname", { required: true })}
-                />
-                {errors.fullname && (
-                  <span className="modal__error">Обязательное поле</span>
-                )}
-              </div>
-            </label>
-            <label className="modal__label modal__label--account">
-              <p className="modal__text">
-                С записью ознакомлен представитель: а) подрядчика; б) заказчика
-                (фамилия, инициалы, должность, дата)<sup>*</sup>
-              </p>
-              <div className="modal__input-container">
-                <textarea
-                  className="modal__input modal__input--textarea"
-                  {...register("agreement", { required: true })}
-                />
-                {errors.agreement && (
-                  <span className="modal__error">Обязательное поле</span>
-                )}
-              </div>
-            </label>
-            <label className="modal__label modal__label--account">
-              <p className="modal__text">
-                Отметка о выполнении указаний: а) подрядчика; б) заказчика
-                (фамилия, инициалы, должность, дата)<sup>*</sup>
-              </p>
-              <div className="modal__input-container">
-                <textarea
-                  type="text"
-                  className="modal__input modal__input--textarea"
-                  {...register("mark", { required: true })}
-                />
-                {errors.mark && (
-                  <span className="modal__error">Обязательное поле</span>
-                )}
-              </div>
-            </label>
-            <FileUploadInput onFileChange={handleFileChange} />
+            <FileUploadInput
+              files={directionFiles}
+              onFilesChange={setDirectionFiles}
+              label="Файлы по указаниям"
+            />
           </div>
           <button type="submit" className="button button--blue">
             Создать запись

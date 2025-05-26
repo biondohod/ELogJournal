@@ -171,3 +171,13 @@ export const apiAnswerWorkIssue = async (id, data) => {
   const res = await axiosJwt.patch(`${URL}/WorkIssueItems/${id}`, data);
   return res.data;
 };
+
+export const apiAddRecordSheet = async (data) => {
+  const res = await axiosJwt.post(`${URL}/RecordSheetItems`, data);
+  return res.data;
+};
+
+export const apiEditRecordSheet = async (id, data) => {
+  const res = await axiosJwt.patch(`${URL}/RecordSheetItems/${id}`, data);
+  return res.data;
+};

@@ -1,8 +1,11 @@
 import { useState } from "react";
 import "./accountSheets.scss";
 import AccountModal from "../AccountModal/AccountModal";
-const AccountSheets = () => {
+import AccountSheetItem from "./AccountSheetItem/AccountSheetItem";
+const AccountSheets = ({ id, sheet }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  console.log("AccountSheets", id, sheet);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -24,6 +27,7 @@ const AccountSheets = () => {
             <col />
             <col />
             <col />
+            <col />
           </colgroup>
           <thead>
             <tr className="table__head-row">
@@ -34,67 +38,36 @@ const AccountSheets = () => {
                 условий по производству строительно-монтажных работ
               </th>
               <th className="table__header table__cell--center">
+                Прилагаемые к выявленным отступлениям и нарушениям документы
+              </th>
+              <th className="table__header table__cell--center">
                 Указания об устранении выявленных отступлений или нарушений и
                 сроки их выполнения
               </th>
               <th className="table__header table__cell--center">
-                Подпись специалиста, осуществляющего авторский надзор,
-                выполняющего запись (фамилия, инициалы, должность)
+                Прилагаемые к указаниям об устранении отступлений документы
               </th>
               <th className="table__header table__cell--center">
-                С записью ознакомлен представитель: а) подрядчика; б) заказчика
-                (фамилия, инициалы, должность, дата)
+                Подпись специалиста
               </th>
               <th className="table__header table__cell--center">
-                Отметка о выполнении указаний: а) подрядчика; б) заказчика
-                (фамилия, инициалы, должность, дата)
+                Подпись заказчика
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr className="table__row">
-              <td className="table__cell table__cell--center">13.09.2025</td>
-              <td className="table__cell table__cell--center">
-                Текст текст текст Текст текст текст
-              </td>
-              <td className="table__cell table__cell--center">
-                Текст текст текст Текст текст текст
-              </td>
-              <td className="table__cell table__cell--center">
-                Текст текст текст Текст текст текст
-              </td>
-              <td className="table__cell table__cell--center">
-                Текст текст текст Текст текст текст
-              </td>
-              <td className="table__cell table__cell--center">
-                Текст текст текст Текст текст текст
-              </td>
-            </tr>
-            <tr className="table__row">
-              <td className="table__cell table__cell--center">13.09.2025</td>
-              <td className="table__cell table__cell--center">
-                Текст текст текст Текст текст текст
-              </td>
-              <td className="table__cell table__cell--center">
-                Текст текст текст Текст текст текст
-              </td>
-              <td className="table__cell table__cell--center">
-                Текст текст текст Текст текст текст
-              </td>
-              <td className="table__cell table__cell--center">
-                Текст текст текст Текст текст текст
-              </td>
-              <td className="table__cell table__cell--center">
-                Текст текст текст Текст текст текст
-              </td>
-            </tr>
+            {sheet?.items?.map((item) => (
+              <AccountSheetItem item={item} key={item.id} id={id} />
+            ))}
           </tbody>
         </table>
         <button className="button button--blue" onClick={handleOpenModal}>
           Добавить
         </button>
       </div>
-      {isModalOpen && <AccountModal onClose={handleCloseModal} />}
+      {isModalOpen && (
+        <AccountModal onClose={handleCloseModal} id={id} sheetId={sheet?.id} />
+      )}
     </>
   );
 };

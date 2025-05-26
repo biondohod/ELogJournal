@@ -13,7 +13,6 @@ const RegisterSheets = ({ id, sheet }) => {
       const formattedData = {
         ...data,
         registrationSheetId: sheet?.id,
-        id: id,
       };
       await addRegistrationSheet(formattedData);
     } catch (error) {

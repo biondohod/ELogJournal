@@ -13,6 +13,8 @@ import {
   apiAddRegistrationSheet,
   apiAddWorkIssue,
   apiAnswerWorkIssue,
+  apiAddRecordSheet,
+  apiEditRecordSheet,
 } from "../api/api";
 import { toast } from "react-toastify";
 
@@ -185,6 +187,36 @@ export const useAnswerWorkIssue = (id) => {
     },
     onError: (err) => {
       const msg = "Ошибка добавления ответа на рабочий вопрос";
+      toast.error(msg);
+    },
+  });
+};
+
+export const useAddRecordSheet = (id) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: apiAddRecordSheet,
+    onSuccess: () => {
+      toast.success("Учетный лист добавлен");
+      queryClient.invalidateQueries([FACILITY, id]);
+    },
+    onError: (err) => {
+      const msg = "Ошибка добавления учетного листа";
+      toast.error(msg);
+    },
+  });
+};
+
+export const useEditRecordSheet = (id) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, data }) => apiEditRecordSheet(id, data),
+    onSuccess: () => {
+      toast.success("Учетный лист обновлен");
+      queryClient.invalidateQueries([FACILITY, id]);
+    },
+    onError: (err) => {
+      const msg = "Ошибка обновления учетного листа";
       toast.error(msg);
     },
   });
