@@ -39,9 +39,7 @@ const UserItem = ({ user }) => {
   return (
     <div className="user">
       <div className="user__container">
-        <Link to={`/profile/${user?.id}`} className="user__text">
-          {user?.name}
-        </Link>
+        <p className="user__text">{user?.name}</p>
         <p className="user__small-text">Email: {user?.email}</p>
         <p className="user__small-text">
           Дата регистрации: {prettyDate(user?.updateInfo?.createdAt)}
@@ -65,7 +63,7 @@ const UserItem = ({ user }) => {
       </div>
       <p className="user__text user__organization">{user?.organizationName}</p>
       <div className="user__buttons">
-        <button className="user__profile"></button>
+        <Link to={`/profile/${user.id}`} className="user__profile"></Link>
         <button className="user__delete"></button>
       </div>
     </div>
