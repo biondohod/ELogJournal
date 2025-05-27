@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import "./facilityForm.scss";
 import { useOrganizations } from "../../query/queries";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 const FacilityForm = ({
   mode = "create",
@@ -10,12 +10,16 @@ const FacilityForm = ({
   defaultValues = {},
 }) => {
   const { data: organizations = [] } = useOrganizations();
-  const processedDefaultValues = {
-    shortName: defaultValues?.shortName || "",
-    fullName: defaultValues?.fullName || "",
-    address: defaultValues?.address || "",
-    organizationId: defaultValues?.organization?.id || "",
-  };
+  const processedDefaultValues = useMemo(
+    () => ({
+      shortName: defaultValues?.shortName || "",
+      fullName: defaultValues?.fullName || "",
+      address: defaultValues?.address || "",
+      organizationId: defaultValues?.organization?.id || "",
+    }),
+    [defaultValues]
+  );
+
   const {
     register,
     handleSubmit,
@@ -25,7 +29,7 @@ const FacilityForm = ({
 
   useEffect(() => {
     reset(processedDefaultValues);
-  }, [defaultValues, reset]);
+  }, []);
 
   const onSubmit = (data) => {
     if (onSubmitProp) {
