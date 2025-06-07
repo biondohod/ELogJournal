@@ -1,21 +1,31 @@
 import { useState } from "react";
 import "./accountSheets.scss";
 import AccountModal from "../AccountModal/AccountModal";
+import AccountModalEdit from "../AccountModal/AccountModalEdit";
 import AccountSheetItem from "./AccountSheetItem/AccountSheetItem";
+
 const AccountSheets = ({ id, sheet }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  console.log("AccountSheets", id, sheet);
+  const [editItem, setEditItem] = useState(null);
 
   const handleOpenModal = () => {
+    setEditItem(null);
     setIsModalOpen(true);
     document.body.style.overflow = "hidden";
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setEditItem(null);
     document.body.style.overflow = "";
   };
+
+  const handleEditClick = (item) => {
+    setEditItem(item);
+    setIsModalOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
   return (
     <>
       <div className="table__wrapper">
@@ -57,7 +67,12 @@ const AccountSheets = ({ id, sheet }) => {
           </thead>
           <tbody>
             {sheet?.items?.map((item) => (
-              <AccountSheetItem item={item} key={item.id} id={id} />
+              <AccountSheetItem
+                item={item}
+                key={item.id}
+                id={id}
+                onEdit={() => handleEditClick(item)}
+              />
             ))}
           </tbody>
         </table>
@@ -65,9 +80,21 @@ const AccountSheets = ({ id, sheet }) => {
           Добавить
         </button>
       </div>
-      {isModalOpen && (
-        <AccountModal onClose={handleCloseModal} id={id} sheetId={sheet?.id} />
-      )}
+      {isModalOpen &&
+        (editItem ? (
+          <AccountModalEdit
+            onClose={handleCloseModal}
+            id={id}
+            sheetId={sheet?.id}
+            item={editItem}
+          />
+        ) : (
+          <AccountModal
+            onClose={handleCloseModal}
+            id={id}
+            sheetId={sheet?.id}
+          />
+        ))}
     </>
   );
 };

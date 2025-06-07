@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import "./fileUploadInput.scss";
 
-const FileUploadInput = ({ files, onFilesChange, label }) => {
+const FileUploadInput = ({ files, onFilesChange, label, onRemove }) => {
   const inputRef = useRef();
 
   const handleChange = (e) => {
@@ -11,8 +11,20 @@ const FileUploadInput = ({ files, onFilesChange, label }) => {
   };
 
   const handleRemove = (index) => {
-    const newFiles = files.filter((_, i) => i !== index);
-    onFilesChange(newFiles);
+    if (onRemove) {
+      onRemove(index);
+    } else {
+      const newFiles = files.filter((_, i) => i !== index);
+      onFilesChange(newFiles);
+    }
+  };
+
+  // Получить имя файла для отображения
+  const getFileName = (file) => {
+    if (file instanceof File) return file.name;
+    if (file.fileName) return file.fileName;
+    if (file.name) return file.name;
+    return "Файл";
   };
 
   return (
@@ -36,7 +48,7 @@ const FileUploadInput = ({ files, onFilesChange, label }) => {
         <div>
           {files.map((file, idx) => (
             <div className="upload__file-info" key={idx}>
-              <span className="upload__text">{file.name}</span>
+              <span className="upload__text">{getFileName(file)}</span>
               <button
                 type="button"
                 className="upload__delete"

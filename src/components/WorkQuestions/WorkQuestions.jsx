@@ -5,8 +5,8 @@ import { prettyDate } from "../../helpers/prettyDate";
 import WorkAnswerModal from "../WorkAnswerModal/WorkAnswerModal";
 
 const WorkQuestions = ({ issue, id }) => {
-  console.log(issue);
   const [openModal, setOpenModal] = useState(null); // "question" | "answer" | null
+  const [answerItemId, setAnswerItemId] = useState(null);
 
   const { mutateAsync: addWorkIssue, isPending: isPendingQuestion } =
     useAddWorkIssue(id);
@@ -28,23 +28,22 @@ const WorkQuestions = ({ issue, id }) => {
 
   const onSubmitAnswer = async (data) => {
     try {
-      // const formattedData = {
-      //   ...data,
-      //   id,
-      // };
-      await addAnswer({ id: issue?.id, data });
+      await addAnswer({ id: answerItemId, data });
+      setAnswerItemId(null);
     } catch (error) {
       console.error("Ошибка при добавлении ответа на вопрос:", error);
     }
   };
 
-  const handleOpenModal = (type) => {
+  const handleOpenModal = (type, itemId = null) => {
     setOpenModal(type); // type: "question" или "answer"
+    setAnswerItemId(itemId);
     document.body.style.overflow = "hidden";
   };
 
   const handleCloseModal = () => {
     setOpenModal(null);
+    setAnswerItemId(null);
     document.body.style.overflow = "";
   };
 
@@ -77,14 +76,16 @@ const WorkQuestions = ({ issue, id }) => {
               issue.items.map((item) => (
                 <tr className="table__row" key={item.id}>
                   <td className="table__cell">
-                    {item.questionedBy?.name || "-"}
+                    {item.questionedBy?.name || "-"}{" "}
+                    {item.questionedBy?.surname}
                   </td>
                   <td className="table__cell">{item.question}</td>
                   <td className="table__cell table__cell--center">
                     {item.questionDate ? prettyDate(item.questionDate) : "-"}
                   </td>
                   <td className="table__cell">
-                    {item.answer ? item.answerUserId || "-" : "-"}
+                    {item.answer ? item.answeredBy?.name || "-" : "-"}{" "}
+                    {item.answeredBy?.surname}
                   </td>
                   <td className="table__cell">
                     {item.answer ? (
@@ -92,7 +93,7 @@ const WorkQuestions = ({ issue, id }) => {
                     ) : (
                       <button
                         className="button button--blue"
-                        onClick={() => handleOpenModal("answer")}
+                        onClick={() => handleOpenModal("answer", item.id)}
                       >
                         Ответить на вопрос
                       </button>

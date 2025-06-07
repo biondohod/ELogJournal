@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./registerSheets.scss";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import { useAddRegistrationSheet } from "../../query/mutations";
+import RegisterSheetItem from "./RegisterSheetItem";
 const RegisterSheets = ({ id, sheet }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -13,6 +14,7 @@ const RegisterSheets = ({ id, sheet }) => {
       const formattedData = {
         ...data,
         registrationSheetId: sheet?.id,
+        id: id,
       };
       await addRegistrationSheet(formattedData);
     } catch (error) {
@@ -52,20 +54,9 @@ const RegisterSheets = ({ id, sheet }) => {
             </tr>
           </thead>
           <tbody>
-            <tr className="table__row">
-              <td className="table__cell">Организация</td>
-              <td className="table__cell">Иванов Иван Иванович</td>
-              <td className="table__cell table__cell--center">13.09.2025</td>
-              <td className="table__cell table__cell--center">14.09.2025</td>
-              <td className="table__cell table__cell--center">Подпись</td>
-            </tr>
-            <tr className="table__row">
-              <td className="table__cell">Организация</td>
-              <td className="table__cell">Иванов Иван Иванович</td>
-              <td className="table__cell table__cell--center">13.09.2025</td>
-              <td className="table__cell table__cell--center">14.09.2025</td>
-              <td className="table__cell table__cell--center">Подпись</td>
-            </tr>
+            {sheet?.items?.map((item) => (
+              <RegisterSheetItem key={item.id} item={item} />
+            ))}
           </tbody>
         </table>
         <button className="button button--blue" onClick={handleOpenModal}>

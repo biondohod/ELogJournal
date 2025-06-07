@@ -96,6 +96,12 @@
     &--center {
       text-align: center;
     }
+
+    &--flex {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
   }
 
   &__save {
@@ -109,5 +115,10 @@
     &:hover {
       transform: scale(1.1);
     }
+  }
+
+  &__button {
+    padding: 4px 8px !important;
+    font-size: 16px !important;
   }
 }

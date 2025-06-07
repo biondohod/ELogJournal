@@ -4,7 +4,7 @@ import { useFileById } from "../../../query/queries";
 import { baseToBlobDownload } from "../../../helpers/baseToBlobDownload";
 import { useEditRecordSheet } from "../../../query/mutations";
 
-const AccountSheetItem = ({ id, item }) => {
+const AccountSheetItem = ({ id, item, onEdit }) => {
   const [activeFile, setActiveFile] = useState(null);
   const { data: fileData, isLoading } = useFileById(activeFile?.id);
   const { mutateAsync: editSheet, isPending } = useEditRecordSheet(id);
@@ -39,46 +39,64 @@ const AccountSheetItem = ({ id, item }) => {
       </td>
       <td className="table__cell table__cell">{item?.deviations}</td>
       <td className="table__cell">
-        {item?.deviationFiles?.length > 0
-          ? item.deviationFiles.map((file) => (
-              <button
-                key={file.id}
-                className="account__file"
-                onClick={() => handleFileClick(file)}
-                disabled={isLoading && activeFile?.id === file.id}
-              >
-                {file.fileName}
-              </button>
-            ))
-          : "-"}
+        <div className="table__cell--flex">
+          {item?.deviationFiles?.length > 0
+            ? item.deviationFiles.map((file) => (
+                <button
+                  key={file.id}
+                  className="account__file"
+                  onClick={() => handleFileClick(file)}
+                  disabled={isLoading && activeFile?.id === file.id}
+                >
+                  {file.fileName}
+                </button>
+              ))
+            : "-"}
+          <button
+            className="button button--blue table__button"
+            onClick={onEdit}
+          >
+            Редактировать
+          </button>
+        </div>
       </td>
       <td className="table__cell table__cell">{item?.directions}</td>
       <td className="table__cell">
-        {item?.directionFiles?.length > 0
-          ? item.directionFiles.map((file) => (
-              <button
-                key={file.id}
-                className="account__file"
-                onClick={() => handleFileClick(file)}
-                disabled={isLoading && activeFile?.id === file.id}
-              >
-                {file.fileName}
-              </button>
-            ))
-          : "-"}
+        <div className="table__cell--flex">
+          {item?.directionFiles?.length > 0
+            ? item.directionFiles.map((file) => (
+                <button
+                  key={file.id}
+                  className="account__file"
+                  onClick={() => handleFileClick(file)}
+                  disabled={isLoading && activeFile?.id === file.id}
+                >
+                  {file.fileName}
+                </button>
+              ))
+            : "-"}
+          <button
+            className="button button--blue table__button"
+            onClick={onEdit}
+          >
+            Редактировать
+          </button>
+        </div>
       </td>
       <td className="table__cell table__cell--center">
         {item?.specialistSignature || "-"}
       </td>
       <td className="table__cell table__cell--center">
-        {item?.representativeSignature || (
-          <button
-            className="button button--blue"
-            onClick={handleSignatureClick}
-          >
-            Подписать
-          </button>
-        )}
+        <div className="table__cell--flex">
+          {item?.representativeSignature || (
+            <button
+              className="button button--blue table__button"
+              onClick={handleSignatureClick}
+            >
+              Подписать
+            </button>
+          )}
+        </div>
       </td>
     </tr>
   );

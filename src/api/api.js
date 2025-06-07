@@ -86,7 +86,7 @@ export const apiGetUser = async () => {
 };
 
 export const apiGetUserList = async () => {
-  const res = await axiosJwt.get(`${URL}/Users`);
+  const res = await axiosJwt.get(`${URL}/Users?GetAll=true`);
   return res.data;
 };
 
@@ -106,7 +106,7 @@ export const apiAddOrganization = async (data) => {
 };
 
 export const apiGetOrganizations = async () => {
-  const res = await axiosJwt.get(`${URL}/Organizations`);
+  const res = await axiosJwt.get(`${URL}/Organizations?GetAll=true`);
   return res.data;
 };
 
@@ -126,7 +126,7 @@ export const apiAddFacility = async (data) => {
 };
 
 export const apiGetFacilities = async () => {
-  const res = await axiosJwt.get(`${URL}/ConstructionSites`);
+  const res = await axiosJwt.get(`${URL}/ConstructionSites?GetAll=true`);
   return res.data;
 };
 
@@ -157,7 +157,7 @@ export const apiGetFileById = async (id) => {
 };
 
 export const apiAddRegistrationSheet = async (data) => {
-  const res = await axiosJwt.post(`${URL}/RegistrationSheetsItems`, data);
+  const res = await axiosJwt.post(`${URL}/RegistrationSheetItems`, data);
   return res.data;
 };
 
