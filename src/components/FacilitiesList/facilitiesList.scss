@@ -8,10 +8,18 @@
   gap: 30px;
 
   &__list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
     width: 100%;
+
+    @media (max-width: 1300px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 550px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   &__button {
@@ -23,8 +31,10 @@
   padding: 34px 67px;
   background-color: #e1e1e1;
   border-radius: 11px;
-  display: grid;
-  grid-template-columns: 2fr 2fr 1fr;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
   transition: all 0.3s;
 
   &__title {
@@ -41,6 +51,27 @@
     line-height: 27px;
     color: #2d2d2d;
     padding-left: 48px;
+    min-height: 36px;
     background: url("../../assets/icons/marker.svg") no-repeat left center;
+    background-size: 36px;
+  }
+
+  @media (max-width: 1024px) {
+    padding: 20px;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 10px;
+
+    &__title {
+      font-size: 24px;
+      line-height: 33px;
+    }
+
+    &__address {
+      font-size: 16px;
+      line-height: 22px;
+      padding-left: 32px;
+      background-size: 20px;
+    }
   }
 }

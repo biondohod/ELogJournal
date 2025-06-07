@@ -1,9 +1,13 @@
 .user {
   display: grid;
-  grid-template-columns: 3fr 3fr 2fr 1fr;
-  gap: 40px;
-  align-items: center;
-  justify-items: center;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto auto;
+  justify-content: flex-start;
+  align-items: flex-start;
+  justify-items: start;
+  height: 100%;
+  gap: 16px;
+
   padding: 18px;
   background: #ffffff;
   border-radius: 10px;
@@ -21,6 +25,7 @@
 
   &__select {
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
     justify-content: start;
     align-items: center;
@@ -35,10 +40,6 @@
   &__smal-text {
     font-size: 18px;
     color: #000000;
-  }
-
-  &__organization {
-    text-align: center;
   }
 
   &__role {
@@ -74,5 +75,15 @@
   &__buttons {
     display: flex;
     gap: 16px;
+  }
+
+  @media (max-width: 1024px) {
+    &__text {
+      font-size: 20px;
+    }
+
+    &__smal-text {
+      font-size: 16px;
+    }
   }
 }

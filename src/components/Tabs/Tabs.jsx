@@ -5,19 +5,21 @@ const Tabs = ({ tabs }) => {
 
   return (
     <div className="tabs">
-      <div className="tabs__header">
-        {tabs.map((tab) => (
-          <button
-            key={tab.name}
-            className={`tabs__tab${
-              activeTab === tab.name ? " tabs__tab--active" : ""
-            }`}
-            onClick={() => setActiveTab(tab.name)}
-            type="button"
-          >
-            {tab.label}
-          </button>
-        ))}
+      <div className="tabs__header-outer">
+        <div className="tabs__header">
+          {tabs.map((tab) => (
+            <button
+              key={tab.name}
+              className={`tabs__tab${
+                activeTab === tab.name ? " tabs__tab--active" : ""
+              }`}
+              onClick={() => setActiveTab(tab.name)}
+              type="button"
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
       </div>
       <div className="tabs__content">
         {tabs.map(

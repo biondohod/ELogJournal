@@ -39,6 +39,11 @@ main {
   font-size: 40px;
   line-height: 55px;
   color: #000000;
+
+  @media (max-width: 768px) {
+    font-size: 30px;
+    line-height: 40px;
+  }
 }
 
 .button {
@@ -52,6 +57,7 @@ main {
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-align: center;
 
   &:hover {
     opacity: 0.8;
@@ -65,6 +71,14 @@ main {
   &--blue {
     background: #275aff;
     color: #ffffff;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+    width: 100%;
+    padding: 8px 16px;
   }
 }
 

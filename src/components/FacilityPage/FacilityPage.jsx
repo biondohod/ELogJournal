@@ -12,8 +12,6 @@ const FacilityPage = () => {
   const { id } = useParams();
   const { data: facility, isLoading } = useFacilityById(id);
 
-  console.log(facility);
-
   const tabs = [
     {
       label: "Приказы",

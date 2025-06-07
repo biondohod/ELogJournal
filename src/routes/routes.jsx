@@ -25,6 +25,9 @@ const EditOrganization = React.lazy(() =>
   import("../pages/EditOrganization/EditOrganization")
 );
 const Profile = React.lazy(() => import("../pages/Profile/Profile"));
+const Notifications = React.lazy(() =>
+  import("../pages/Notifications/Notifications")
+);
 
 const router = createBrowserRouter([
   {
@@ -58,6 +61,18 @@ const router = createBrowserRouter([
         <ProtectedRoute>
           <Layout>
             <Profile />
+          </Layout>
+        </ProtectedRoute>
+      </Suspense>
+    ),
+  },
+  {
+    path: "/notifications",
+    element: (
+      <Suspense fallback={<Loader size={86} />}>
+        <ProtectedRoute>
+          <Layout>
+            <Notifications />
           </Layout>
         </ProtectedRoute>
       </Suspense>

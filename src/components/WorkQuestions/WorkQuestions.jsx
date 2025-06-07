@@ -50,69 +50,73 @@ const WorkQuestions = ({ issue, id }) => {
   return (
     <>
       <div className="table__wrapper">
-        <table className="table table--questions">
-          <colgroup>
-            <col />
-            <col />
-            <col />
-            <col />
-            <col />
-            <col />
-          </colgroup>
-          <thead>
-            <tr className="table__head-row">
-              <th className="table__header">Автор вопроса</th>
-              <th className="table__header">Текст вопроса</th>
-              <th className="table__header table__cell--center">
-                Дата вопроса
-              </th>
-              <th className="table__header">Автор ответа</th>
-              <th className="table__header">Текст ответа</th>
-              <th className="table__header table__cell--center">Дата ответа</th>
-            </tr>
-          </thead>
-          <tbody>
-            {issue?.items?.length > 0 ? (
-              issue.items.map((item) => (
-                <tr className="table__row" key={item.id}>
-                  <td className="table__cell">
-                    {item.questionedBy?.name || "-"}{" "}
-                    {item.questionedBy?.surname}
-                  </td>
-                  <td className="table__cell">{item.question}</td>
-                  <td className="table__cell table__cell--center">
-                    {item.questionDate ? prettyDate(item.questionDate) : "-"}
-                  </td>
-                  <td className="table__cell">
-                    {item.answer ? item.answeredBy?.name || "-" : "-"}{" "}
-                    {item.answeredBy?.surname}
-                  </td>
-                  <td className="table__cell">
-                    {item.answer ? (
-                      item.answer
-                    ) : (
-                      <button
-                        className="button button--blue"
-                        onClick={() => handleOpenModal("answer", item.id)}
-                      >
-                        Ответить на вопрос
-                      </button>
-                    )}
-                  </td>
-                  <td className="table__cell table__cell--center">
-                    {item.answerDate ? prettyDate(item.answerDate) : "-"}
+        <div className="table__container">
+          <table className="table table--questions">
+            <colgroup>
+              <col />
+              <col />
+              <col />
+              <col />
+              <col />
+              <col />
+            </colgroup>
+            <thead>
+              <tr className="table__head-row">
+                <th className="table__header">Автор вопроса</th>
+                <th className="table__header">Текст вопроса</th>
+                <th className="table__header table__cell--center">
+                  Дата вопроса
+                </th>
+                <th className="table__header">Автор ответа</th>
+                <th className="table__header">Текст ответа</th>
+                <th className="table__header table__cell--center">
+                  Дата ответа
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {issue?.items?.length > 0 ? (
+                issue.items.map((item) => (
+                  <tr className="table__row" key={item.id}>
+                    <td className="table__cell">
+                      {item.questionedBy?.name || "-"}{" "}
+                      {item.questionedBy?.surname}
+                    </td>
+                    <td className="table__cell">{item.question}</td>
+                    <td className="table__cell table__cell--center">
+                      {item.questionDate ? prettyDate(item.questionDate) : "-"}
+                    </td>
+                    <td className="table__cell">
+                      {item.answer ? item.answeredBy?.name || "-" : "-"}{" "}
+                      {item.answeredBy?.surname}
+                    </td>
+                    <td className="table__cell">
+                      {item.answer ? (
+                        item.answer
+                      ) : (
+                        <button
+                          className="button button--blue table__button"
+                          onClick={() => handleOpenModal("answer", item.id)}
+                        >
+                          Ответить на вопрос
+                        </button>
+                      )}
+                    </td>
+                    <td className="table__cell table__cell--center">
+                      {item.answerDate ? prettyDate(item.answerDate) : "-"}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td className="table__cell" colSpan={6}>
+                    Нет вопросов
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td className="table__cell" colSpan={6}>
-                  Нет вопросов
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              )}
+            </tbody>
+          </table>
+        </div>
         <button
           className="button button--blue"
           onClick={() => handleOpenModal("question")}

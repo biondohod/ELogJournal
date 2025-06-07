@@ -34,31 +34,33 @@ const RegisterSheets = ({ id, sheet }) => {
   return (
     <>
       <div className="table__wrapper">
-        <table className="table table--register">
-          <colgroup>
-            <col />
-            <col />
-            <col />
-            <col />
-            <col />
-          </colgroup>
-          <thead>
-            <tr className="table__head-row">
-              <th className="table__header">Наименование организации</th>
-              <th className="table__header">Фамилия, имя, отчество</th>
-              <th className="table__header">Дата приезда</th>
-              <th className="table__header">Дата отъезда</th>
-              <th className="table__header table__cell--center">
-                Подпись представителя заказчика
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {sheet?.items?.map((item) => (
-              <RegisterSheetItem key={item.id} item={item} />
-            ))}
-          </tbody>
-        </table>
+        <div className="table__container">
+          <table className="table table--register">
+            <colgroup>
+              <col />
+              <col />
+              <col />
+              <col />
+              <col />
+            </colgroup>
+            <thead>
+              <tr className="table__head-row">
+                <th className="table__header">Наименование организации</th>
+                <th className="table__header">Фамилия, имя, отчество</th>
+                <th className="table__header">Дата приезда</th>
+                <th className="table__header">Дата отъезда</th>
+                <th className="table__header table__cell--center">
+                  Подпись представителя заказчика
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {sheet?.items?.map((item) => (
+                <RegisterSheetItem key={item.id} item={item} />
+              ))}
+            </tbody>
+          </table>
+        </div>
         <button className="button button--blue" onClick={handleOpenModal}>
           Добавить
         </button>

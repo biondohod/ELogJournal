@@ -100,6 +100,13 @@ export const apiGetUsersByIds = async (ids) => {
   return res.data;
 };
 
+export const apiGetNotifications = async () => {
+  const res = await axiosJwt.get(
+    `${URL}/RecordSheetItemNotifications?GetAll=true&UserId=${getCurrentUserId()}`
+  );
+  return res.data;
+};
+
 export const apiEditUser = async (id, data) => {
   const res = await axiosJwt.patch(`${URL}/Users/${id}`, data);
   return res.data;
@@ -172,7 +179,6 @@ export const apiAddWorkIssue = async (data) => {
 };
 
 export const apiAnswerWorkIssue = async (id, data) => {
-  console.log("apiAnswerWorkIssue", id, data);
   const res = await axiosJwt.patch(`${URL}/WorkIssueItems/${id}`, data);
   return res.data;
 };

@@ -18,6 +18,7 @@ import {
   apiGetFacilityById,
   apiGetFileById,
   apiGetUsersByIds,
+  apiGetNotifications,
 } from "../api/api";
 
 export const useUser = () => {
@@ -29,6 +30,19 @@ export const useUser = () => {
     queryFn: apiGetUser,
     enabled: !!currentUserId && !!token,
     retry: false,
+  });
+};
+
+export const useNotifications = () => {
+  const currentUserId = localStorage.getItem("currentUserId");
+  const token = localStorage.getItem("token");
+
+  return useQuery({
+    queryKey: ["notifications", currentUserId],
+    queryFn: apiGetNotifications,
+    enabled: !!currentUserId && !!token,
+    retry: false,
+    refetchInterval: 120000,
   });
 };
 
@@ -67,7 +81,6 @@ export const useOrganizations = () => {
 };
 
 export const useOrganizationById = (id) => {
-  console.log("useOrganizationById called with id:", id);
   return useQuery({
     queryKey: [ORGANIZATION, id],
     queryFn: () => apiGetOrganizationById(id),

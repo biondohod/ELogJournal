@@ -1,1 +1,1 @@
-export const SHOW_COUNT = 4;
+export const SHOW_COUNT = 6;

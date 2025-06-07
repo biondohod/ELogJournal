@@ -1,10 +1,13 @@
 import { Link, NavLink } from "react-router-dom";
 import profilePlaceholder from "@assets/img/profilePlaceholder.png";
+import bell from "@assets/icons/bell.svg";
 import "./header.scss";
 import { useLogout } from "../../query/mutations";
+import { useNotifications } from "../../query/queries";
 
 const Header = () => {
   const { mutateAsync: logOut, isPending } = useLogout();
+  const { data } = useNotifications();
 
   const handleLogout = async () => {
     try {
@@ -32,6 +35,12 @@ const Header = () => {
         </div>
         <div className="header__container">
           <div className="header__user">
+            <Link
+              to={`/notifications`}
+              className="header__link header__link--account"
+            >
+              <img src={bell} alt="" className="header__img" />
+            </Link>
             <Link
               to={`/profile/${localStorage.getItem("currentUserId")}`}
               className="header__link header__link--account"

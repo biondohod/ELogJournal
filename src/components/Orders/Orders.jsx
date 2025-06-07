@@ -38,25 +38,27 @@ const Orders = ({ id, orders }) => {
 
   return (
     <div className="table__wrapper">
-      <table className="table table--orders">
-        <colgroup>
-          <col />
-          <col />
-          <col />
-        </colgroup>
-        <thead>
-          <tr className="table__head-row">
-            <th className="table__header">Название</th>
-            <th className="table__header">Дата добавления</th>
-            <th className="table__header table__cell--center"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.map((order) => {
-            return <OrderItem order={order} key={order?.id} />;
-          })}
-        </tbody>
-      </table>
+      <div className="table__container">
+        <table className="table table--orders">
+          <colgroup>
+            <col />
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr className="table__head-row">
+              <th className="table__header">Название</th>
+              <th className="table__header">Дата добавления</th>
+              <th className="table__header table__cell--center"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order) => {
+              return <OrderItem order={order} key={order?.id} />;
+            })}
+          </tbody>
+        </table>
+      </div>
       <input
         type="file"
         ref={fileInputRef}
