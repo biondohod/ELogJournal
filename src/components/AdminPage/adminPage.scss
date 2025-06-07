@@ -21,8 +21,12 @@
     background: #dbdbdb;
     border-radius: 24px;
     font-size: 14px;
-    color: rgba(0, 0, 0, 0.42);
     border: none;
+
+    &::placeholder {
+      color: #000000;
+      opacity: 0.5;
+    }
   }
 
   &__btn {

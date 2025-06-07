@@ -95,6 +95,11 @@ export const apiGetUserById = async (id) => {
   return res.data;
 };
 
+export const apiGetUsersByIds = async (ids) => {
+  const res = await axiosJwt.get(`${URL}/Users?Ids=${ids.join("&Ids=")}`);
+  return res.data;
+};
+
 export const apiEditUser = async (id, data) => {
   const res = await axiosJwt.patch(`${URL}/Users/${id}`, data);
   return res.data;

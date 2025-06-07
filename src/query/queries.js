@@ -17,6 +17,7 @@ import {
   apiGetFacilities,
   apiGetFacilityById,
   apiGetFileById,
+  apiGetUsersByIds,
 } from "../api/api";
 
 export const useUser = () => {
@@ -48,6 +49,15 @@ export const useUserById = (id) => {
   });
 };
 
+export const useUserByIds = (ids) => {
+  return useQuery({
+    queryKey: [USERS, ids],
+    queryFn: () => apiGetUsersByIds(ids),
+    enabled: !!ids && ids.length > 0,
+    retry: 2,
+  });
+};
+
 export const useOrganizations = () => {
   return useQuery({
     queryKey: [ORGANIZATIONS],
@@ -57,6 +67,7 @@ export const useOrganizations = () => {
 };
 
 export const useOrganizationById = (id) => {
+  console.log("useOrganizationById called with id:", id);
   return useQuery({
     queryKey: [ORGANIZATION, id],
     queryFn: () => apiGetOrganizationById(id),

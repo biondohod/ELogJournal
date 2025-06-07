@@ -1,14 +1,20 @@
 import { useParams } from "react-router-dom";
 import "./profilePage.scss";
-import { useUserById } from "../../query/queries";
+import { useOrganizationById, useUserById } from "../../query/queries";
 import Loader from "../Loader/Loader";
 import { prettyDate } from "../../helpers/prettyDate";
 
 const ProfilePage = () => {
   const id = useParams().id;
   const { data, isLoading } = useUserById(id);
+  const orgId = data?.organizationId;
 
-  if (isLoading) {
+  // Не вызываем useOrganizationById, если нет orgId
+  const orgQuery = useOrganizationById(orgId);
+  const organization = orgQuery.data;
+  const isOrgLoading = orgId ? orgQuery.isPending : false;
+
+  if (isLoading || isOrgLoading) {
     return (
       <div className="loader-wrapper">
         <Loader size={86} />
@@ -36,11 +42,13 @@ const ProfilePage = () => {
         </div>
         <div className="profile__row">
           <span className="profile__label">Организация</span>
-          <span className="profile__value">{data.organizationName || "-"}</span>
+          <span className="profile__value">
+            {data.organizationName || organization.name || "-"}
+          </span>
         </div>
         <div className="profile__row">
-          <span className="profile__label">Роль</span>
-          <span className="profile__value">{data.userRole}</span>
+          <span className="profile__label">Телефон</span>
+          <span className="profile__value">{data.phone || "-"}</span>
         </div>
         <div className="profile__row">
           <span className="profile__label">Дата регистрации</span>

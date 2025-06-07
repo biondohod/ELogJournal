@@ -8,9 +8,15 @@ const AdminPage = () => {
   const { data = [] } = useUserList();
 
   // Фильтрация пользователей по email
-  const filteredUsers = data.filter((user) =>
-    user.email?.toLowerCase().includes(searchValue.toLowerCase())
-  );
+  const filteredUsers = data.filter((user) => {
+    const search = searchValue.toLowerCase();
+    return (
+      user.email?.toLowerCase().includes(search) ||
+      user.name?.toLowerCase().includes(search) ||
+      user.surname?.toLowerCase().includes(search) ||
+      user.patronymic?.toLowerCase().includes(search)
+    );
+  });
 
   return (
     <div className="admin">
@@ -20,7 +26,7 @@ const AdminPage = () => {
           <input
             type="text"
             className="admin__input"
-            placeholder="Поиск по почте пользователя"
+            placeholder="Поиск пользователей"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />

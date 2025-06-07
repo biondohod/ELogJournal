@@ -32,5 +32,45 @@
     font-size: 30px;
     line-height: 41px;
     color: #2d2d2d;
+
+    &--hover {
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 80%;
+  margin: 0 auto;
+
+  &__item {
+    width: 100%;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    font-size: 18px;
+    color: #333;
+  }
+
+  &__profile {
+    width: 36px;
+    height: 36px;
+    background: url("../../assets/icons/account_circle.svg") no-repeat center;
+    transition: all 0.3s;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 }
