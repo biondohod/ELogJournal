@@ -42,7 +42,8 @@
 
   &__field {
     position: relative;
-    input {
+    input,
+    select {
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -59,6 +60,9 @@
       &::placeholder {
         color: #2d2d2d;
       }
+    }
+    select {
+      width: 100%;
     }
   }
 

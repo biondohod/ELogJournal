@@ -1,6 +1,6 @@
 .user {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 2fr 1fr 1fr;
   gap: 40px;
   align-items: center;
   justify-items: center;
@@ -9,7 +9,6 @@
   border-radius: 10px;
 
   &:hover {
-    opacity: 0.8;
     text-decoration: none;
   }
 
@@ -22,6 +21,7 @@
 
   &__select {
     display: flex;
+    width: 100%;
     justify-content: start;
     align-items: center;
     gap: 16px;
@@ -42,6 +42,8 @@
   }
 
   &__role {
+    width: 100%;
+    text-align: center;
     border: none;
     background: transparent;
     padding: 8px;

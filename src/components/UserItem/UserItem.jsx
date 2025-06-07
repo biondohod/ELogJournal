@@ -3,6 +3,7 @@ import { prettyDate } from "../../helpers/prettyDate";
 import { useEditUser } from "../../query/mutations";
 import { useOrganizations } from "../../query/queries";
 import "./userItem.scss";
+import OrganizationSelect from "../OrganizationSelect/OrganizationSelect";
 const UserItem = ({ user }) => {
   const { data: organizations = [] } = useOrganizations();
   const { mutateAsync: editUser } = useEditUser();
@@ -10,13 +11,12 @@ const UserItem = ({ user }) => {
   const hasOrg =
     organizations.find((org) => org.id === user.organizationId) !== undefined;
 
-  const handleChange = async (e) => {
-    const { value } = e.target;
+  const handleChange = async (organizationId) => {
     try {
       await editUser({
         id: user.id,
         data: {
-          organizationId: value,
+          organizationId,
         },
       });
     } catch (error) {
@@ -47,19 +47,12 @@ const UserItem = ({ user }) => {
       </div>
       <div className="user__select">
         <p className="user__text">Организация:</p>
-        <select
-          name="role"
-          className="user__role user__text"
-          defaultValue={hasOrg ? user.organizationId : ""}
+        <OrganizationSelect
+          className="user__role"
+          value={user.organizationId}
           onChange={handleChange}
-        >
-          {!hasOrg && <option value="">Не указано</option>}
-          {sortedOrganizations.map((organization) => (
-            <option key={organization.id} value={organization.id}>
-              {organization.name}
-            </option>
-          ))}
-        </select>
+          name="organizationId"
+        />
       </div>
       <p className="user__text user__organization">{user?.organizationName}</p>
       <div className="user__buttons">

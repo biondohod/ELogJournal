@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import "./facilityForm.scss";
 import { useOrganizations } from "../../query/queries";
 import { useEffect, useMemo } from "react";
+import OrganizationSelect from "../OrganizationSelect/OrganizationSelect";
 
 const FacilityForm = ({
   mode = "create",
@@ -25,6 +26,8 @@ const FacilityForm = ({
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
+    watch,
   } = useForm({ defaultValues: processedDefaultValues });
 
   useEffect(() => {
@@ -92,19 +95,14 @@ const FacilityForm = ({
         <label htmlFor="organizationId" className="facility-form__label">
           Организация <sup>*</sup>
         </label>
-        <select
-          id="organizationId"
-          className="facility-form__input-field"
-          {...register("organizationId", { required: "Выберите организацию" })}
-          defaultValue=""
-        >
-          {mode === "create" && <option value="">Не указано</option>}
-          {organizations.map((organization) => (
-            <option key={organization.id} value={organization.id}>
-              {organization.name}
-            </option>
-          ))}
-        </select>
+        <OrganizationSelect
+          value={watch("organizationId")}
+          onChange={(orgId) => {
+            setValue("organizationId", orgId, { shouldValidate: true });
+          }}
+          name="organizationId"
+          required
+        />
         {errors.organizationId && (
           <span className="facility-form__error">
             {errors.organizationId.message}
