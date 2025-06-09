@@ -15,6 +15,7 @@ import {
   apiAnswerWorkIssue,
   apiAddRecordSheet,
   apiEditRecordSheet,
+  apiReadNotification,
 } from "../api/api";
 import { toast } from "react-toastify";
 
@@ -217,6 +218,21 @@ export const useEditRecordSheet = (id) => {
     },
     onError: (err) => {
       const msg = "Ошибка обновления учетного листа";
+      toast.error(msg);
+    },
+  });
+};
+
+export const useReadNotification = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (id) => apiReadNotification(id),
+    onSuccess: (id) => {
+      toast.success("Уведомление прочитано");
+      queryClient.invalidateQueries(["notifications"]);
+    },
+    onError: (err) => {
+      const msg = "Ошибка при отметке уведомления как прочитанного";
       toast.error(msg);
     },
   });

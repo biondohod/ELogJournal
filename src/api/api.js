@@ -107,6 +107,17 @@ export const apiGetNotifications = async () => {
   return res.data;
 };
 
+export const apiReadNotification = async (id) => {
+  const res = await axiosJwt.patch(
+    `${URL}/RecordSheetItemNotifications/${id}`,
+    {
+      isRead: true,
+      id,
+    }
+  );
+  return res.data;
+};
+
 export const apiEditUser = async (id, data) => {
   const res = await axiosJwt.patch(`${URL}/Users/${id}`, data);
   return res.data;
