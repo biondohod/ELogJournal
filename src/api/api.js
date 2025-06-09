@@ -138,7 +138,9 @@ export const apiAddFacility = async (data) => {
 };
 
 export const apiGetFacilities = async () => {
-  const res = await axiosJwt.get(`${URL}/ConstructionSites?GetAll=true`);
+  const res = await axiosJwt.get(
+    `${URL}/ConstructionSites?GetAll=true&UserRoleUserId=${getCurrentUserId()}`
+  );
   return res.data;
 };
 
