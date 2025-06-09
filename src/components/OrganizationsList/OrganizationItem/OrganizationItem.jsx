@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import OrganizationItemModal from "./OrganizationItemModal";
+import { usePermissionsGlobal } from "../../../query/queries";
 
 const OrganizationItem = ({ org }) => {
   const [openModal, setOpenModal] = useState(false);
+  const { data: permissions } = usePermissionsGlobal();
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -25,12 +27,14 @@ const OrganizationItem = ({ org }) => {
         >
           Пользователей: {org.userIds.length}
         </p>
-        <Link
-          to={`/organizations/edit/${org.id}`}
-          className="button button--blue"
-        >
-          Редактировать
-        </Link>
+        {permissions?.organizationPermission?.canUpdate && (
+          <Link
+            to={`/organizations/edit/${org.id}`}
+            className="button button--blue"
+          >
+            Редактировать
+          </Link>
+        )}
       </li>
       {openModal && (
         <OrganizationItemModal

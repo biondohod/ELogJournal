@@ -3,10 +3,12 @@ import "./accountSheets.scss";
 import AccountModal from "../AccountModal/AccountModal";
 import AccountModalEdit from "../AccountModal/AccountModalEdit";
 import AccountSheetItem from "./AccountSheetItem/AccountSheetItem";
+import { usePermissionsFacility } from "../../query/queries";
 
 const AccountSheets = ({ id, sheet }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editItem, setEditItem] = useState(null);
+  const { data: permissions } = usePermissionsFacility(id);
 
   const handleOpenModal = () => {
     setEditItem(null);
@@ -78,9 +80,11 @@ const AccountSheets = ({ id, sheet }) => {
             </tbody>
           </table>
         </div>
-        <button className="button button--blue" onClick={handleOpenModal}>
-          Добавить
-        </button>
+        {permissions?.recordSheetItemPermission?.canCreate && (
+          <button className="button button--blue" onClick={handleOpenModal}>
+            Добавить
+          </button>
+        )}
       </div>
       {isModalOpen &&
         (editItem ? (

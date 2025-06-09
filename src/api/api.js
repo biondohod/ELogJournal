@@ -205,3 +205,15 @@ export const apiEditRecordSheet = async (id, data) => {
   const res = await axiosJwt.patch(`${URL}/RecordSheetItems/${id}`, data);
   return res.data;
 };
+
+export const apiGetGlobalPermissions = async () => {
+  const res = await axiosJwt.get(`${URL}/Permissions/global`);
+  return res.data;
+};
+
+export const apiGetFacilityPermissions = async (facilityId) => {
+  const res = await axiosJwt.get(
+    `${URL}/Permissions/constructionSite/${facilityId}`
+  );
+  return res.data;
+};

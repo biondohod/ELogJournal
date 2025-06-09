@@ -6,11 +6,14 @@ import RegisterSheets from "../RegisterSheets/RegisterSheets";
 import Tabs from "../Tabs/Tabs";
 import WorkQuestions from "../WorkQuestions/WorkQuestions";
 import "./facilityPage.scss";
-import { useFacilityById } from "../../query/queries";
+import { useFacilityById, usePermissionsFacility } from "../../query/queries";
 import Loader from "../Loader/Loader";
 const FacilityPage = () => {
   const { id } = useParams();
   const { data: facility, isLoading } = useFacilityById(id);
+  const { data: permissions } = usePermissionsFacility(id);
+
+  console.log("FacilityPage permissions", permissions);
 
   const tabs = [
     {

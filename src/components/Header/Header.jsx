@@ -3,11 +3,12 @@ import profilePlaceholder from "@assets/img/profilePlaceholder.png";
 import bell from "@assets/icons/bell.svg";
 import "./header.scss";
 import { useLogout } from "../../query/mutations";
-import { useNotifications } from "../../query/queries";
+import { useNotifications, usePermissionsGlobal } from "../../query/queries";
 
 const Header = () => {
   const { mutateAsync: logOut, isPending } = useLogout();
   const { data } = useNotifications();
+  const { data: permissions } = usePermissionsGlobal();
 
   const handleLogout = async () => {
     try {
@@ -25,12 +26,16 @@ const Header = () => {
             <NavLink to="/" className="header__link">
               Список объектов
             </NavLink>
-            <NavLink to="/admin" className="header__link">
-              Админ панель
-            </NavLink>
-            <NavLink to="/organizations" className="header__link">
-              Организации
-            </NavLink>
+            {permissions?.canAccessAdminPanel && (
+              <NavLink to="/admin" className="header__link">
+                Админ панель
+              </NavLink>
+            )}
+            {permissions?.organizationPermission?.canRead && (
+              <NavLink to="/organizations" className="header__link">
+                Организации
+              </NavLink>
+            )}
           </nav>
         </div>
         <div className="header__container">
@@ -40,6 +45,11 @@ const Header = () => {
               className="header__link header__link--account"
             >
               <img src={bell} alt="" className="header__img" />
+              {data?.length > 0 && (
+                <span className="header__notifications-count">
+                  {data?.length}
+                </span>
+              )}
             </Link>
             <Link
               to={`/profile/${localStorage.getItem("currentUserId")}`}

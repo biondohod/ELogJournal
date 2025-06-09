@@ -7,3 +7,5 @@ export const FACILITY = "facility";
 export const FILE = "file";
 export const NOTIFICATIONS = "notifications";
 export const NOTIFICATION = "notification";
+export const PERMISSIONS_GLOBAL = "permissionsGlobal";
+export const PERMISSIONS_FACILITY = "permissionsFacility";

@@ -1,12 +1,14 @@
 import { useRef } from "react";
 import { useEditFacility, useUploadFile } from "../../query/mutations";
 import OrderItem from "./OrderItem/OrderItem";
+import { usePermissionsFacility } from "../../query/queries";
 
 const Orders = ({ id, orders }) => {
   const { mutateAsync: uploadFile, isPending: isPenidingUpload } =
     useUploadFile();
   const { mutateAsync: editFacility, isPending: isPendingEdit } =
     useEditFacility();
+  const { data: permissions } = usePermissionsFacility(id);
   const fileInputRef = useRef(null);
 
   const handleButtonClick = () => {
@@ -66,14 +68,16 @@ const Orders = ({ id, orders }) => {
         onChange={handleFileChange}
         accept="*"
       />
-      <button
-        className="button button--blue"
-        disabled={isPenidingUpload || isPendingEdit}
-        onClick={handleButtonClick}
-        type="button"
-      >
-        Загрузить
-      </button>
+      {permissions?.canUpdateOrders && (
+        <button
+          className="button button--blue"
+          disabled={isPenidingUpload || isPendingEdit}
+          onClick={handleButtonClick}
+          type="button"
+        >
+          Загрузить
+        </button>
+      )}
     </div>
   );
 };

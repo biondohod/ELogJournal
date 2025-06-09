@@ -1,6 +1,6 @@
 import { prettyDate } from "../../../helpers/prettyDate";
 import { useState, useEffect } from "react";
-import { useFileById } from "../../../query/queries";
+import { useFileById, usePermissionsFacility } from "../../../query/queries";
 import { baseToBlobDownload } from "../../../helpers/baseToBlobDownload";
 import { useEditRecordSheet } from "../../../query/mutations";
 
@@ -8,6 +8,7 @@ const AccountSheetItem = ({ id, item, onEdit }) => {
   const [activeFile, setActiveFile] = useState(null);
   const { data: fileData, isLoading } = useFileById(activeFile?.id);
   const { mutateAsync: editSheet, isPending } = useEditRecordSheet(id);
+  const { data: permissions } = usePermissionsFacility(id);
 
   // Скачивание файла при получении данных
   useEffect(() => {
@@ -52,12 +53,14 @@ const AccountSheetItem = ({ id, item, onEdit }) => {
                 </button>
               ))
             : "-"}
-          <button
-            className="button button--blue table__button"
-            onClick={onEdit}
-          >
-            Редактировать
-          </button>
+          {permissions?.recordSheetItemPermission?.canUpdateDeviations && (
+            <button
+              className="button button--blue table__button"
+              onClick={onEdit}
+            >
+              Редактировать
+            </button>
+          )}
         </div>
       </td>
       <td className="table__cell table__cell">{item?.directions}</td>
@@ -75,12 +78,14 @@ const AccountSheetItem = ({ id, item, onEdit }) => {
                 </button>
               ))
             : "-"}
-          <button
-            className="button button--blue table__button"
-            onClick={onEdit}
-          >
-            Редактировать
-          </button>
+          {permissions?.recordSheetItemPermission?.canUpdateDirections && (
+            <button
+              className="button button--blue table__button"
+              onClick={onEdit}
+            >
+              Редактировать
+            </button>
+          )}
         </div>
       </td>
       <td className="table__cell table__cell--center">
@@ -88,14 +93,18 @@ const AccountSheetItem = ({ id, item, onEdit }) => {
       </td>
       <td className="table__cell table__cell--center">
         <div className="table__cell--flex">
-          {item?.representativeSignature || (
-            <button
-              className="button button--blue table__button"
-              onClick={handleSignatureClick}
-            >
-              Подписать
-            </button>
-          )}
+          {item?.representativeSignature ||
+            (permissions?.recordSheetItemPermission
+              ?.canUpdateRepresentativeId ? (
+              <button
+                className="button button--blue table__button"
+                onClick={handleSignatureClick}
+              >
+                Подписать
+              </button>
+            ) : (
+              <span>-</span>
+            ))}
         </div>
       </td>
     </tr>

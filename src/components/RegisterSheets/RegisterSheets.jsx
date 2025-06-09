@@ -3,8 +3,10 @@ import "./registerSheets.scss";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import { useAddRegistrationSheet } from "../../query/mutations";
 import RegisterSheetItem from "./RegisterSheetItem";
+import { usePermissionsFacility } from "../../query/queries";
 const RegisterSheets = ({ id, sheet }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { data: permissions } = usePermissionsFacility(id);
 
   const { mutateAsync: addRegistrationSheet, isPending } =
     useAddRegistrationSheet(id);
@@ -61,9 +63,11 @@ const RegisterSheets = ({ id, sheet }) => {
             </tbody>
           </table>
         </div>
-        <button className="button button--blue" onClick={handleOpenModal}>
-          Добавить
-        </button>
+        {permissions?.registrationSheetItemPermission?.canCreate && (
+          <button className="button button--blue" onClick={handleOpenModal}>
+            Добавить
+          </button>
+        )}
       </div>
       {isModalOpen && (
         <RegisterModal

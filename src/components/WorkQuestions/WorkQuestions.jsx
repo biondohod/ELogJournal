@@ -3,10 +3,12 @@ import { useAddWorkIssue, useAnswerWorkIssue } from "../../query/mutations";
 import WorkQuestionsModal from "../WorkQuestionsModal/WorkQuestionsModal";
 import { prettyDate } from "../../helpers/prettyDate";
 import WorkAnswerModal from "../WorkAnswerModal/WorkAnswerModal";
+import { usePermissionsFacility } from "../../query/queries";
 
 const WorkQuestions = ({ issue, id }) => {
   const [openModal, setOpenModal] = useState(null); // "question" | "answer" | null
   const [answerItemId, setAnswerItemId] = useState(null);
+  const { data: permissions } = usePermissionsFacility(id);
 
   const { mutateAsync: addWorkIssue, isPending: isPendingQuestion } =
     useAddWorkIssue(id);
@@ -80,7 +82,8 @@ const WorkQuestions = ({ issue, id }) => {
                   <tr className="table__row" key={item.id}>
                     <td className="table__cell">
                       {item.questionedBy?.name || "-"}{" "}
-                      {item.questionedBy?.surname}
+                      {item.questionedBy?.surname}{" "}
+                      {item.questionedBy?.patronymic}
                     </td>
                     <td className="table__cell">{item.question}</td>
                     <td className="table__cell table__cell--center">
@@ -88,18 +91,20 @@ const WorkQuestions = ({ issue, id }) => {
                     </td>
                     <td className="table__cell">
                       {item.answer ? item.answeredBy?.name || "-" : "-"}{" "}
-                      {item.answeredBy?.surname}
+                      {item.answeredBy?.surname} {item.answeredBy?.patronymic}
                     </td>
                     <td className="table__cell">
                       {item.answer ? (
                         item.answer
-                      ) : (
+                      ) : permissions?.workIssueItemPermission?.canUpdate ? (
                         <button
                           className="button button--blue table__button"
                           onClick={() => handleOpenModal("answer", item.id)}
                         >
                           Ответить на вопрос
                         </button>
+                      ) : (
+                        "-"
                       )}
                     </td>
                     <td className="table__cell table__cell--center">
@@ -117,12 +122,14 @@ const WorkQuestions = ({ issue, id }) => {
             </tbody>
           </table>
         </div>
-        <button
-          className="button button--blue"
-          onClick={() => handleOpenModal("question")}
-        >
-          Задать вопрос
-        </button>
+        {permissions?.workIssueItemPermission?.canCreate && (
+          <button
+            className="button button--blue"
+            onClick={() => handleOpenModal("question")}
+          >
+            Задать вопрос
+          </button>
+        )}
       </div>
       {openModal === "question" && (
         <WorkQuestionsModal

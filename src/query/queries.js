@@ -5,6 +5,8 @@ import {
   FILE,
   ORGANIZATION,
   ORGANIZATIONS,
+  PERMISSIONS_FACILITY,
+  PERMISSIONS_GLOBAL,
   USER,
   USERS,
 } from "./keys";
@@ -19,6 +21,8 @@ import {
   apiGetFileById,
   apiGetUsersByIds,
   apiGetNotifications,
+  apiGetGlobalPermissions,
+  apiGetFacilityPermissions,
 } from "../api/api";
 
 export const useUser = () => {
@@ -111,6 +115,30 @@ export const useFileById = (id) => {
     queryKey: [FILE, id],
     queryFn: () => apiGetFileById(id),
     enabled: !!id,
+    retry: 2,
+  });
+};
+
+export const usePermissionsGlobal = () => {
+  const currentUserId = localStorage.getItem("currentUserId");
+  const token = localStorage.getItem("token");
+
+  return useQuery({
+    queryKey: [PERMISSIONS_GLOBAL, currentUserId],
+    queryFn: apiGetGlobalPermissions,
+    enabled: !!currentUserId && !!token,
+    retry: 2,
+  });
+};
+
+export const usePermissionsFacility = (id) => {
+  const currentUserId = localStorage.getItem("currentUserId");
+  const token = localStorage.getItem("token");
+
+  return useQuery({
+    queryKey: [PERMISSIONS_FACILITY, currentUserId],
+    queryFn: () => apiGetFacilityPermissions(id),
+    enabled: !!currentUserId && !!token,
     retry: 2,
   });
 };
