@@ -12,44 +12,60 @@ const roles = [
   { id: 5, value: "Observer", name: "Обозреватель" },
 ];
 
-const UserItemRole = ({ user, role, facilityId }) => {
+const UserItemRole = ({
+  user,
+  role,
+  facilityId,
+  constructionSiteUserRoles,
+}) => {
   const { mutateAsync: editFacility, isPending } = useEditFacility();
   const defaultRoleValue = role
     ? roles.find((r) => r.value === role)?.value
     : user.role;
 
+  // ...existing code...
   const handleRoleChange = async (e) => {
     const selectedValue = e.target.value;
     const selectedRole = roles.find((r) => r.value === selectedValue);
-    const roleId = selectedRole?.id;
+    const roleValue = selectedRole?.value;
 
     // Определяем, была ли у пользователя роль до этого
     const hadRole = !!role && role !== "NoRole";
     const isNoRole = selectedValue === "NoRole";
 
+    // Найти объект роли пользователя для получения корректного id
+    let roleObjId;
+    if (Array.isArray(constructionSiteUserRoles)) {
+      const found = constructionSiteUserRoles.find(
+        (item) => item.userId === user.id
+      );
+      if (found) roleObjId = found.id;
+    }
+
     // Формируем userRoles только с нужными массивами
     const userRoles = {};
 
     if (isNoRole) {
-      userRoles.remove = [user.id];
+      // В remove нужен id объекта роли, а не user.id
+      if (roleObjId) userRoles.remove = [roleObjId];
     } else if (hadRole) {
-      userRoles.update = [
-        {
-          role: roleId,
-          id: user.id,
-        },
-      ];
+      // В update нужен id объекта роли, а не user.id
+      if (roleObjId) {
+        userRoles.update = [
+          {
+            role: roleValue,
+            id: roleObjId,
+          },
+        ];
+      }
     } else {
       userRoles.add = [
         {
           userId: user.id,
-          role: roleId,
-          id: user.id,
+          role: roleValue,
         },
       ];
     }
-
-    console.log("userRoles payload:", userRoles);
 
     // Отправляем запрос на изменение facility с новыми ролями
     await editFacility({
@@ -57,6 +73,7 @@ const UserItemRole = ({ user, role, facilityId }) => {
       data: { userRoles },
     });
   };
+  // ...existing code...
 
   return (
     <div className="user">

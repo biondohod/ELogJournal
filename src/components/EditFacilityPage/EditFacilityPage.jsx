@@ -81,6 +81,9 @@ const EditFacilityPage = () => {
                     user={user}
                     role={userRole}
                     facilityId={facility?.id}
+                    constructionSiteUserRoles={
+                      facility?.constructionSiteUserRoles
+                    }
                   />
                 </li>
               );

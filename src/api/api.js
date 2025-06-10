@@ -102,7 +102,7 @@ export const apiGetUsersByIds = async (ids) => {
 
 export const apiGetNotifications = async () => {
   const res = await axiosJwt.get(
-    `${URL}/RecordSheetItemNotifications?GetAll=true&UserId=${getCurrentUserId()}`
+    `${URL}/RecordSheetItemNotifications?GetAll=true&UserId=${getCurrentUserId()}&IsRead=false`
   );
   return res.data;
 };

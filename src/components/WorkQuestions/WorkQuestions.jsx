@@ -96,7 +96,8 @@ const WorkQuestions = ({ issue, id }) => {
                     <td className="table__cell">
                       {item.answer ? (
                         item.answer
-                      ) : permissions?.workIssueItemPermission?.canUpdate ? (
+                      ) : permissions?.workIssueItemPermission?.canUpdate ||
+                        permissions?.canUpdate ? (
                         <button
                           className="button button--blue table__button"
                           onClick={() => handleOpenModal("answer", item.id)}
@@ -122,7 +123,8 @@ const WorkQuestions = ({ issue, id }) => {
             </tbody>
           </table>
         </div>
-        {permissions?.workIssueItemPermission?.canCreate && (
+        {(permissions?.workIssueItemPermission?.canCreate ||
+          permissions?.canUpdate) && (
           <button
             className="button button--blue"
             onClick={() => handleOpenModal("question")}

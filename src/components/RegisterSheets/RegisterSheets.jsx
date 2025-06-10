@@ -63,7 +63,8 @@ const RegisterSheets = ({ id, sheet }) => {
             </tbody>
           </table>
         </div>
-        {permissions?.registrationSheetItemPermission?.canCreate && (
+        {(permissions?.registrationSheetItemPermission?.canCreate ||
+          permissions?.canUpdate) && (
           <button className="button button--blue" onClick={handleOpenModal}>
             Добавить
           </button>

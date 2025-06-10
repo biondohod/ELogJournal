@@ -68,16 +68,17 @@ const Orders = ({ id, orders }) => {
         onChange={handleFileChange}
         accept="*"
       />
-      {permissions?.canUpdateOrders && (
-        <button
-          className="button button--blue"
-          disabled={isPenidingUpload || isPendingEdit}
-          onClick={handleButtonClick}
-          type="button"
-        >
-          Загрузить
-        </button>
-      )}
+      {permissions?.canUpdateOrders ||
+        (permissions?.canUpdate && (
+          <button
+            className="button button--blue"
+            disabled={isPenidingUpload || isPendingEdit}
+            onClick={handleButtonClick}
+            type="button"
+          >
+            Загрузить
+          </button>
+        ))}
     </div>
   );
 };

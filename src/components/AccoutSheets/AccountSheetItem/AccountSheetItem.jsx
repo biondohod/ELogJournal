@@ -53,7 +53,8 @@ const AccountSheetItem = ({ id, item, onEdit }) => {
                 </button>
               ))
             : "-"}
-          {permissions?.recordSheetItemPermission?.canUpdateDeviations && (
+          {(permissions?.recordSheetItemPermission?.canUpdateDeviations ||
+            permissions?.canUpdate) && (
             <button
               className="button button--blue table__button"
               onClick={onEdit}
@@ -78,7 +79,8 @@ const AccountSheetItem = ({ id, item, onEdit }) => {
                 </button>
               ))
             : "-"}
-          {permissions?.recordSheetItemPermission?.canUpdateDirections && (
+          {(permissions?.recordSheetItemPermission?.canUpdateDirections ||
+            permissions?.canUpdate) && (
             <button
               className="button button--blue table__button"
               onClick={onEdit}
@@ -95,7 +97,7 @@ const AccountSheetItem = ({ id, item, onEdit }) => {
         <div className="table__cell--flex">
           {item?.representativeSignature ||
             (permissions?.recordSheetItemPermission
-              ?.canUpdateRepresentativeId ? (
+              ?.canUpdateRepresentativeId || permissions?.canUpdate ? (
               <button
                 className="button button--blue table__button"
                 onClick={handleSignatureClick}

@@ -80,7 +80,8 @@ const AccountSheets = ({ id, sheet }) => {
             </tbody>
           </table>
         </div>
-        {permissions?.recordSheetItemPermission?.canCreate && (
+        {(permissions?.recordSheetItemPermission?.canCreate ||
+          permissions?.canUpdate) && (
           <button className="button button--blue" onClick={handleOpenModal}>
             Добавить
           </button>

@@ -27,12 +27,14 @@ const NotificationsPage = () => {
               <Link
                 to={`/facility/${notif.constructionSiteId}`}
                 className="button button--blue"
+                onClick={() => handleRead(notif.id)}
               >
                 К объекту
               </Link>
               <button
                 className="button button--white"
                 onClick={() => handleRead(notif.id)}
+                disabled={isPending}
               >
                 Прочитано
               </button>
