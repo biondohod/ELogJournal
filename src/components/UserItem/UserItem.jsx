@@ -8,8 +8,17 @@ const UserItem = ({ user }) => {
   const { data: organizations = [] } = useOrganizations();
   const { mutateAsync: editUser } = useEditUser();
 
-  const hasOrg =
-    organizations.find((org) => org.id === user.organizationId) !== undefined;
+  const handleAdminCheckbox = async (e) => {
+    const isChecked = e.target.checked;
+    const roleNumber = isChecked ? 2 : 1;
+    console.log("User ID:", user.id, "Role number:", roleNumber);
+    await editUser({
+      id: user.id,
+      data: {
+        userRole: roleNumber,
+      },
+    });
+  };
 
   const handleChange = async (organizationId) => {
     try {
@@ -59,7 +68,18 @@ const UserItem = ({ user }) => {
       <p className="user__text user__organization">{user?.organizationName}</p>
       <div className="user__buttons">
         <Link to={`/profile/${user.id}`} className="user__profile"></Link>
-        {/* <button className="user__delete"></button> */}
+        <label className="user__checkbox-label">
+          <input
+            type="checkbox"
+            name="isUserAdmin"
+            id={`isUserAdmin-${user.id}`}
+            className="user__checkbox"
+            checked={user.userRole === "Admin"}
+            onChange={handleAdminCheckbox}
+          />
+          Сделать админом
+          <span className="user__custom-checkbox"></span>
+        </label>
       </div>
     </div>
   );

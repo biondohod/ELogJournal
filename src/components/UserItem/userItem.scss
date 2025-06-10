@@ -16,6 +16,49 @@
     text-decoration: none;
   }
 
+  // ...existing code...
+
+  &__checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 8px;
+    position: relative;
+    font-size: 18px;
+    user-select: none;
+  }
+
+  &__checkbox {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
+
+  &__custom-checkbox {
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 4px;
+    background: #e1e1e1;
+    display: inline-block;
+    position: relative;
+    transition: background 0.2s;
+    margin-right: 8px;
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &__checkbox:checked + &__custom-checkbox {
+    background: #275aff url("../../assets/icons/checkmark.svg") no-repeat center;
+    background-size: 20px 20px;
+  }
+
+  &__checkbox:checked + &__custom-checkbox::after {
+    content: none;
+  }
+
   &__container {
     justify-self: start;
     display: flex;
@@ -79,7 +122,10 @@
   }
 
   &__buttons {
+    width: 100%;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 16px;
   }
 
